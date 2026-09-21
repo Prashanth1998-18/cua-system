@@ -1,0 +1,315 @@
+{
+  "capability_id": "9df6e530-1280-4e8f-b25b-da1c2ae7450e",
+  "capability_name": "total_with_tax",
+  "status": "success",
+  "outputs": {
+    "items_and_prices": [
+      {
+        "item-quantity": "1",
+        "inventory-item-name": "Sauce Labs Fleece Jacket",
+        "inventory-item-desc": "It's not every day that you come across a midweight quarter-zip fleece jacket capable of handling everything from a relaxing day outdoors to a busy day at the office.",
+        "inventory-item-price": "$49.99"
+      }
+    ],
+    "item_total": "Item total: $49.99",
+    "tax": "Tax: $4.00",
+    "total": "Total: $53.99"
+  },
+  "outcome_key": null,
+  "outcome_message": null,
+  "failed_at_step": null,
+  "failure_reason": null,
+  "step_results": [
+    {
+      "step_id": "navigate_01",
+      "status": "success",
+      "locator_used": null,
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 1084
+    },
+    {
+      "step_id": "type_02",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Username",
+        "role": "textbox",
+        "description": "textbox \"Username\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 83
+    },
+    {
+      "step_id": "type_03",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Password",
+        "role": "textbox",
+        "description": "textbox \"Password\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 50
+    },
+    {
+      "step_id": "click_04",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Login",
+        "role": "button",
+        "description": "button \"Login\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 49
+    },
+    {
+      "step_id": "click_05[1]",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Add to cart",
+        "role": "button",
+        "description": "button \"Add to cart\" in the card showing \"Sauce Labs Fleece Jacket\"",
+        "inside_card": "[data-test=\"inventory-item-description\"]",
+        "card_text": "Sauce Labs Fleece Jacket"
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 63
+    },
+    {
+      "step_id": "click_07",
+      "status": "success",
+      "locator_used": {
+        "strategy": "css",
+        "value": "[data-test=\"shopping-cart-link\"]",
+        "role": null,
+        "description": "by test attribute",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 2034
+    },
+    {
+      "step_id": "click_08",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Checkout",
+        "role": "button",
+        "description": "button \"Checkout\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 65
+    },
+    {
+      "step_id": "type_09",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "First Name",
+        "role": "textbox",
+        "description": "textbox \"First Name\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 36
+    },
+    {
+      "step_id": "type_10",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Last Name",
+        "role": "textbox",
+        "description": "textbox \"Last Name\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 10
+    },
+    {
+      "step_id": "type_11",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Zip/Postal Code",
+        "role": "textbox",
+        "description": "textbox \"Zip/Postal Code\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 10
+    },
+    {
+      "step_id": "click_12",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Continue",
+        "role": "button",
+        "description": "button \"Continue\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 41
+    },
+    {
+      "step_id": "extract_13",
+      "status": "success",
+      "locator_used": {
+        "strategy": "css",
+        "value": "[data-test=\"cart-list\"]",
+        "role": null,
+        "description": "by test attribute",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": [
+        {
+          "item-quantity": "1",
+          "inventory-item-name": "Sauce Labs Fleece Jacket",
+          "inventory-item-desc": "It's not every day that you come across a midweight quarter-zip fleece jacket capable of handling everything from a relaxing day outdoors to a busy day at the office.",
+          "inventory-item-price": "$49.99"
+        }
+      ],
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 323
+    },
+    {
+      "step_id": "extract_14",
+      "status": "success",
+      "locator_used": {
+        "strategy": "css",
+        "value": "[data-test=\"subtotal-label\"]",
+        "role": null,
+        "description": "by test attribute",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": "Item total: $49.99",
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 318
+    },
+    {
+      "step_id": "extract_15",
+      "status": "success",
+      "locator_used": {
+        "strategy": "css",
+        "value": "[data-test=\"tax-label\"]",
+        "role": null,
+        "description": "by test attribute",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": "Tax: $4.00",
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 322
+    },
+    {
+      "step_id": "extract_16",
+      "status": "success",
+      "locator_used": {
+        "strategy": "css",
+        "value": "[data-test=\"total-label\"]",
+        "role": null,
+        "description": "by test attribute",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": "Total: $53.99",
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 320
+    },
+    {
+      "step_id": "click_17",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Cancel",
+        "role": "button",
+        "description": "button \"Cancel\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 13
+    }
+  ],
+  "screenshot_path": null,
+  "duration_ms": 5219,
+  "interventions": []
+}

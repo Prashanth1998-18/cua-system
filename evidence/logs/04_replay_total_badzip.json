@@ -1,0 +1,14 @@
+{
+  "capability_id": "9df6e530-1280-4e8f-b25b-da1c2ae7450e",
+  "capability_name": "total_with_tax",
+  "status": "failure",
+  "outputs": {},
+  "outcome_key": null,
+  "outcome_message": null,
+  "failed_at_step": "input_validation",
+  "failure_reason": "Invalid input: 'zip' must be an existing 5-digit US zip code (got (hidden))",
+  "step_results": [],
+  "screenshot_path": null,
+  "duration_ms": 0,
+  "interventions": []
+}

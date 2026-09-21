@@ -1,0 +1,59 @@
+Starting discovery: Answers "what do you sell?" and "how much does X cost?".
+
+**You're given:** a username, a password, and a sort order: one of "Name (A to Z)",
+"Name (Z to A)", "Price (low to high)", "Price (high to low)".
+
+**What to do:**
+1. Go to https://www.saucedemo.com and log in with the username and password.
+2. Wait for the Products page to finish loading.
+3. Choose the given sort order in the sort dropdown.
+4. Read every product on the page: its name, description and price, in the order shown.
+
+**Returns:** the list of products, each with its name, description and price.
+
+**Success:** the Products page is showing, sorted as requested, and every product on it has
+been read.
+
+**Failure (a legitimate "no"):** the site rejects the login (for example the account is locked
+out). Report "login rejected" with the reason the site shows. Otherwise none: the catalog
+always has an answer.
+
+**Error (escalate to a human):** a page never finishes loading even after one retry, or
+anything else doesn't look like what's described above. Stop, report which step, what we expected, and what we actually saw, with
+a screenshot, and hand it to a human.
+  Entry point: https://www.saucedemo.com
+  Capability:  browse_catalog
+  Inputs:      {'username': 'standard_user', 'sort_order': 'Name (A to Z)'}
+  Secrets:     ['password'] (values withheld from the LLM and logs)
+15:25:22 [INFO] cua.browser.session: Browser session started (headless=True, cdp_port=9222)
+15:25:23 [INFO] cua.discovery.agent: Discovery step 1: asking LLM for next action...
+15:25:24 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+15:25:24 [INFO] cua.discovery.agent: Retrying with 'max_completion_tokens' instead of 'max_tokens'
+15:25:24 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+15:25:24 [INFO] cua.discovery.agent: Retrying with reasoning_effort='none' for tool-call support
+15:25:25 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:25:25 [INFO] cua.discovery.agent: Discovery step 1: LLM called type_text({"ref": "e11", "text": "standard_user", "is_input_param": true, "param_name": "username", "description": "Enter the provided username"})
+15:25:26 [INFO] cua.discovery.agent: Discovery step 2: asking LLM for next action...
+15:25:27 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:25:27 [INFO] cua.discovery.agent: Discovery step 2: LLM called type_text({"ref": "e13", "text": "{{inputs.password}}", "is_input_param": true, "param_name": "password", "is_sensitive": true, "description": "Enter the provided password"})
+15:25:27 [INFO] cua.discovery.agent: Discovery step 3: asking LLM for next action...
+15:25:28 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:25:28 [INFO] cua.discovery.agent: Discovery step 3: LLM called click({"ref": "e15", "description": "Log in with the provided credentials", "if_rejected_outcome": "login_rejected", "if_rejected_message": "Report login rejected with the reason shown by the site"})
+15:25:29 [INFO] cua.discovery.agent: Discovery step 4: asking LLM for next action...
+15:25:31 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:25:31 [INFO] cua.discovery.agent: Discovery step 4: LLM called select_option({"ref": "e38", "value": "Name (A to Z)", "is_input_param": true, "param_name": "sort_order", "description": "Sort products by the requested order"})
+15:25:32 [INFO] cua.discovery.agent: Discovery step 5: asking LLM for next action...
+15:25:33 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:25:33 [INFO] cua.discovery.agent: Discovery step 5: LLM called extract({"ref": "e39", "output_name": "products", "as_list": true, "description": "All products in displayed order, including each product name, description, and price"})
+15:25:34 [INFO] cua.discovery.agent: Discovery step 6: asking LLM for next action...
+15:25:35 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:25:35 [INFO] cua.discovery.agent: Discovery step 6: LLM called done({"success": true, "summary": "Logged in successfully, confirmed the Products page is sorted by Name (A to Z), and read all 6 products with their names, descriptions, and prices."})
+15:25:35 [INFO] cua.discovery.agent: Discovery complete: Logged in successfully, confirmed the Products page is sorted by Name (A to Z), and read all 6 products with their names, descriptions, and prices.
+15:25:35 [INFO] cua.browser.session: Browser session stopped
+15:25:35 [INFO] cua.discovery.agent: Discovery produced capability 'browse_catalog' with 6 steps, 3 inputs, 1 outputs
+
+Discovery complete!
+  Steps recorded: 6
+  Inputs:         ['username', 'password', 'sort_order']
+  Outputs:        ['products']
+  Artifact saved: evidence/artifacts/browse_catalog.json

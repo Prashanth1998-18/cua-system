@@ -1,0 +1,73 @@
+{
+  "capability_id": "1c17ae3a-fbcf-4370-961d-116c7bac63c2",
+  "capability_name": "browse_catalog",
+  "status": "business_outcome",
+  "outputs": {},
+  "outcome_key": "login_rejected",
+  "outcome_message": "Report login rejected with the reason shown by the site: Epic sadface: Sorry, this user has been locked out.",
+  "failed_at_step": null,
+  "failure_reason": null,
+  "step_results": [
+    {
+      "step_id": "navigate_01",
+      "status": "success",
+      "locator_used": null,
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 994
+    },
+    {
+      "step_id": "type_02",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Username",
+        "role": "textbox",
+        "description": "textbox \"Username\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 64
+    },
+    {
+      "step_id": "type_03",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Password",
+        "role": "textbox",
+        "description": "textbox \"Password\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 41
+    },
+    {
+      "step_id": "click_04",
+      "status": "business_outcome",
+      "locator_used": null,
+      "extracted_value": null,
+      "error_class": "business_outcome",
+      "error_message": "Report login rejected with the reason shown by the site: Epic sadface: Sorry, this user has been locked out.",
+      "outcome_key": "login_rejected",
+      "screenshot_path": null,
+      "duration_ms": 10143
+    }
+  ],
+  "screenshot_path": "evidence/screenshots/browse_catalog_click_04_20260921-152603_failure.png",
+  "duration_ms": 11654,
+  "interventions": []
+}

@@ -1,0 +1,10 @@
+Replaying: Total with tax
+  Steps: 16
+  Inputs:  {'username': 'standard_user', 'items': ['Sauce Labs Backpack'], 'password': '***', 'first_name': '***', 'last_name': '***', 'zip': '***'}
+
+Replay result: FAILURE
+  Duration: 0ms
+  Failure: Invalid input: 'zip' must be an existing 5-digit US zip code (got (hidden))
+  Failed at: input_validation
+
+  Result saved: evidence/logs/04_replay_total_badzip.json

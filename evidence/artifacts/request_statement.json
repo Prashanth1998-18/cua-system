@@ -1,0 +1,383 @@
+{
+  "schema_version": "1.0.0",
+  "meta": {
+    "id": "22b7faa9-e864-43f9-9402-2fd813b7dedd",
+    "name": "request_statement",
+    "display_name": "Request a statement",
+    "description": "Look up a member and request a statement (mock legacy app)",
+    "version": "1.0.0",
+    "created_at": "2026-09-21T20:00:08.650747Z",
+    "source_discovery_run_id": "018fd89c-8a26-4ca5-b422-675b2e53a340",
+    "surface": {
+      "type": "web",
+      "entry_point": "http://127.0.0.1:8099/",
+      "app_identifier": "request_statement",
+      "tenant_id": null
+    },
+    "human_assisted": []
+  },
+  "contract": {
+    "inputs": {
+      "member": {
+        "type": "string",
+        "required": true,
+        "sensitive": false,
+        "default": null,
+        "description": "Enter the provided member number.",
+        "allowed_values": null,
+        "format": null
+      }
+    },
+    "outputs": {
+      "member_status_and_balance": {
+        "type": "table",
+        "extract_from_step": "extract_04",
+        "description": "Read the member's status and balance from the member details table.",
+        "columns": [],
+        "card_selector": null
+      }
+    },
+    "success_condition": {
+      "type": "element_visible",
+      "value": "",
+      "locator": {
+        "strategy": "role",
+        "value": "Statement requested",
+        "role": "heading",
+        "description": "heading \"Statement requested\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "description": "the \"Statement requested\" heading"
+    }
+  },
+  "steps": [
+    {
+      "id": "navigate_01",
+      "action": "navigate",
+      "description": "Navigate to Request a statement entry point",
+      "target": null,
+      "value": null,
+      "url": "http://127.0.0.1:8099/",
+      "extract_output_key": null,
+      "checkpoint": null,
+      "error_handlers": [],
+      "risk_level": "safe",
+      "waits_for_network": false,
+      "for_each": null,
+      "timeout_ms": 10000,
+      "wait_before_ms": 0
+    },
+    {
+      "id": "type_02",
+      "action": "type",
+      "description": "Enter the provided member number.",
+      "target": {
+        "locators": [
+          {
+            "strategy": "css",
+            "value": "input[name=\"member\"]",
+            "role": null,
+            "description": "by name attribute",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "body > form > table > tbody > tr:nth-of-type(1) > td:nth-of-type(2) > input",
+            "role": null,
+            "description": "by position in the page structure",
+            "inside_card": null,
+            "card_text": null
+          }
+        ],
+        "description": "textbox",
+        "iframe_path": null
+      },
+      "value": "{{inputs.member}}",
+      "url": null,
+      "extract_output_key": null,
+      "checkpoint": null,
+      "error_handlers": [],
+      "risk_level": "safe",
+      "waits_for_network": false,
+      "for_each": null,
+      "timeout_ms": 5000,
+      "wait_before_ms": 0
+    },
+    {
+      "id": "click_03",
+      "action": "click",
+      "description": "Look up member {{inputs.member}}.",
+      "target": {
+        "locators": [
+          {
+            "strategy": "role",
+            "value": "Look up",
+            "role": "button",
+            "description": "button \"Look up\"",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "input[value=\"Look up\"]",
+            "role": null,
+            "description": "by button label",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "body > form > table > tbody > tr:nth-of-type(2) > td > input",
+            "role": null,
+            "description": "by position in the page structure",
+            "inside_card": null,
+            "card_text": null
+          }
+        ],
+        "description": "button \"Look up\"",
+        "iframe_path": null
+      },
+      "value": null,
+      "url": null,
+      "extract_output_key": null,
+      "checkpoint": {
+        "type": "element_visible",
+        "value": "",
+        "locator": {
+          "strategy": "role",
+          "value": "Member {{inputs.member}}",
+          "role": "heading",
+          "description": "heading \"Member {{inputs.member}}\"",
+          "inside_card": null,
+          "card_text": null
+        },
+        "description": "the \"Member 13344\" heading"
+      },
+      "error_handlers": [
+        {
+          "condition": {
+            "type": "alert_visible",
+            "value": "",
+            "locator": null
+          },
+          "also_requires": [
+            {
+              "type": "element_not_visible",
+              "value": "",
+              "locator": {
+                "strategy": "role",
+                "value": "Member {{inputs.member}}",
+                "role": "heading",
+                "description": "heading \"Member {{inputs.member}}\"",
+                "inside_card": null,
+                "card_text": null
+              }
+            }
+          ],
+          "classification": "business_outcome",
+          "outcome_key": "member_lookup_rejected",
+          "outcome_message": "Report the application's displayed reason if the member lookup is rejected.",
+          "report_page_message": true,
+          "recovery": null,
+          "recovery_target": null,
+          "max_retries": 0
+        }
+      ],
+      "risk_level": "safe",
+      "waits_for_network": true,
+      "for_each": null,
+      "timeout_ms": 10000,
+      "wait_before_ms": 0
+    },
+    {
+      "id": "extract_04",
+      "action": "extract",
+      "description": "Read the member's status and balance from the member details table.",
+      "target": {
+        "locators": [
+          {
+            "strategy": "css",
+            "value": "body > table",
+            "role": null,
+            "description": "by position in the page structure",
+            "inside_card": null,
+            "card_text": null
+          }
+        ],
+        "description": "table",
+        "iframe_path": null
+      },
+      "value": null,
+      "url": null,
+      "extract_output_key": "member_status_and_balance",
+      "checkpoint": null,
+      "error_handlers": [],
+      "risk_level": "safe",
+      "waits_for_network": false,
+      "for_each": null,
+      "timeout_ms": 5000,
+      "wait_before_ms": 0
+    },
+    {
+      "id": "click_05",
+      "action": "click",
+      "description": "Request the member statement.",
+      "target": {
+        "locators": [
+          {
+            "strategy": "role",
+            "value": "Request statement",
+            "role": "button",
+            "description": "button \"Request statement\"",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "input[value=\"Request statement\"]",
+            "role": null,
+            "description": "by button label",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "body > form > input:nth-of-type(2)",
+            "role": null,
+            "description": "by position in the page structure",
+            "inside_card": null,
+            "card_text": null
+          }
+        ],
+        "description": "button \"Request statement\"",
+        "iframe_path": null
+      },
+      "value": null,
+      "url": null,
+      "extract_output_key": null,
+      "checkpoint": {
+        "type": "element_visible",
+        "value": "",
+        "locator": {
+          "strategy": "role",
+          "value": "Statement requested",
+          "role": "heading",
+          "description": "heading \"Statement requested\"",
+          "inside_card": null,
+          "card_text": null
+        },
+        "description": "the \"Statement requested\" heading"
+      },
+      "error_handlers": [
+        {
+          "condition": {
+            "type": "element_not_visible",
+            "value": "",
+            "locator": {
+              "strategy": "role",
+              "value": "Request statement",
+              "role": "button",
+              "description": "button \"Request statement\"",
+              "inside_card": null,
+              "card_text": null
+            }
+          },
+          "also_requires": [
+            {
+              "type": "element_visible",
+              "value": "",
+              "locator": {
+                "strategy": "role",
+                "value": "Member {{inputs.member}}",
+                "role": "heading",
+                "description": "heading \"Member {{inputs.member}}\"",
+                "inside_card": null,
+                "card_text": null
+              }
+            }
+          ],
+          "classification": "business_outcome",
+          "outcome_key": "request_statement_control_missing",
+          "outcome_message": "Expected the Request statement control on the member page, but it was not present.",
+          "report_page_message": false,
+          "recovery": null,
+          "recovery_target": null,
+          "max_retries": 0
+        }
+      ],
+      "risk_level": "needs_confirmation",
+      "waits_for_network": true,
+      "for_each": null,
+      "timeout_ms": 10000,
+      "wait_before_ms": 0
+    }
+  ],
+  "global_error_handlers": [
+    {
+      "condition": {
+        "type": "element_visible",
+        "value": "",
+        "locator": {
+          "strategy": "role",
+          "value": "Dismiss",
+          "role": "button",
+          "description": "button \"Dismiss\"",
+          "inside_card": null,
+          "card_text": null
+        }
+      },
+      "also_requires": [],
+      "classification": "recoverable",
+      "outcome_key": null,
+      "outcome_message": null,
+      "report_page_message": false,
+      "recovery": "dismiss_element",
+      "recovery_target": {
+        "locators": [
+          {
+            "strategy": "role",
+            "value": "Dismiss",
+            "role": "button",
+            "description": "button \"Dismiss\"",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[id=\"notice\"] > div > button",
+            "role": null,
+            "description": "by position in the page structure",
+            "inside_card": null,
+            "card_text": null
+          }
+        ],
+        "description": "button \"Dismiss\"",
+        "iframe_path": null
+      },
+      "max_retries": 2
+    }
+  ],
+  "policy": {
+    "allowed_domains": [
+      "127.0.0.1"
+    ],
+    "blocked_url_patterns": [],
+    "allowed_actions": [
+      "click",
+      "type",
+      "select_option",
+      "navigate",
+      "extract",
+      "wait",
+      "assert",
+      "scroll",
+      "key_press"
+    ],
+    "pii_fields": [],
+    "max_steps": 30,
+    "timeout_seconds": 120
+  },
+  "requires_operator": true
+}

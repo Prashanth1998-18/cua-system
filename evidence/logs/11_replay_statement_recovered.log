@@ -1,0 +1,38 @@
+Replaying: Request a statement
+  Steps: 5
+  Inputs:  {'member': '13344'}
+  This capability needs your approval before it commits anything.
+
+  Waiting for you: http://127.0.0.1:8080
+15:00:26 [INFO] cua.replay.engine: Starting replay: Request a statement with inputs {'member': '13344'}
+15:00:27 [INFO] cua.browser.session: Browser session started (headless=False, cdp_port=9222)
+15:00:39 [WARNING] cua.browser.adapter: Clicking 'button "Look up"' was expected to contact the server (it did during discovery), but no request was seen; continuing once the page is quiet
+15:00:49 [WARNING] cua.replay.engine: Step 'click_03' timed out: After 'Look up member {{inputs.member}}.', expected the "Member 13344" heading within 10s; instead saw page "Member Services" (http://127.0.0.1:8099/) with headings "Member Services"
+15:00:49 [INFO] cua.replay.handlers: Error handler matched: recoverable (classification=recoverable, condition=element_visible='')
+15:00:49 [INFO] cua.replay.engine: Recovery attempt 1/2 for step 'click_03': dismiss_element
+15:00:50 [INFO] cua.replay.engine: Step 'click_03' succeeded after recovery (attempt 1/2)
+15:00:50 [INFO] cua.escalation.state_machine: Escalation: automation_active → paused {'reason': 'Approval needed before: Request the member statement.'}
+15:00:50 [INFO] cua.escalation.intervention: Intervention request created: de2e0b2d-4b8f-4bef-893d-beab5aad03ce (type=confirmation, step=click_05)
+15:00:50 [WARNING] cua.escalation.channel: Escalated to operator (confirmation) at step 'click_05': Approval needed before: Request the member statement.. Waiting up to 300s.
+15:00:52 [INFO] cua.escalation.intervention: Intervention resolved: request=de2e0b2d-4b8f-4bef-893d-beab5aad03ce, action=resume
+15:00:52 [INFO] cua.escalation.state_machine: Escalation: paused → automation_active 
+15:00:52 [INFO] cua.escalation.channel: Intervention finished: {'step_id': 'click_05', 'operator_action': 'resume', 'operator_took_over': False}
+15:00:53 [INFO] cua.browser.session: Browser session stopped
+
+Replay result: SUCCESS
+  Duration: 26584ms
+  Outputs:
+    member_status_and_balance: table, 2 rows
+      {'col_0': 'Status', 'col_1': 'Active'}
+      {'col_0': 'Balance', 'col_1': '$1,204.55'}
+  Intervention 1: confirmation at click_05 -> resume
+    Notes: approved
+
+  Step trace (5 steps):
+    ✓ navigate_01 [429ms]
+    ✓ type_02 (via strategy=<LocatorStrategy.CSS: 'css'> value='input[name="member"]' role=None description='by name attribute' inside_card=None card_text=None) [140ms]
+    ✓ click_03 (via strategy=<LocatorStrategy.ROLE: 'role'> value='Look up' role='button' description='button "Look up"' inside_card=None card_text=None) [21037ms]
+    ✓ extract_04 (via strategy=<LocatorStrategy.CSS: 'css'> value='body > table' role=None description='by position in the page structure' inside_card=None card_text=None) → table (2 rows) [338ms]
+    ✓ click_05 (via strategy=<LocatorStrategy.ROLE: 'role'> value='Request statement' role='button' description='button "Request statement"' inside_card=None card_text=None) [2304ms]
+
+  Result saved: evidence/logs/11_replay_statement_recovered.json

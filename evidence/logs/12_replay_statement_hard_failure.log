@@ -1,0 +1,43 @@
+Replaying: Request a statement
+  Steps: 5
+  Inputs:  {'member': '13344'}
+  This capability needs your approval before it commits anything.
+
+  Waiting for you: http://127.0.0.1:8080
+15:01:41 [INFO] cua.replay.engine: Starting replay: Request a statement with inputs {'member': '13344'}
+15:01:42 [INFO] cua.browser.session: Browser session started (headless=False, cdp_port=9222)
+15:01:49 [WARNING] cua.replay.engine: Step 'click_03' timed out: All locators exhausted for 'button "Look up"':
+  - role=Look up: Locator.wait_for: Timeout 2000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Look up", exact=True) to be visible
+
+  - css=input[value="Look up"]: Locator.wait_for: Timeout 2000ms exceeded.
+Call log:
+  - waiting for locator("input[value=\"Look up\"]") to be visible
+
+  - css=body > form > table > tbody > tr:nth-of-type(2) > td > input: Locator.wait_for: Timeout 2000ms exceeded.
+Call log:
+  - waiting for locator("body > form > table > tbody > tr:nth-of-type(2) > td > input") to be visible
+
+15:01:49 [INFO] cua.replay.engine: Step 'click_03' failed with no known cause; retrying once
+15:01:55 [INFO] cua.escalation.state_machine: Escalation: automation_active → paused {'reason': "Step 'Look up member {{inputs.member}}.' failed"}
+15:01:55 [INFO] cua.escalation.intervention: Intervention request created: 23991eb0-eb7d-477b-9fe6-4dc161771aec (type=hard_failure, step=click_03)
+15:01:55 [WARNING] cua.escalation.channel: Escalated to operator (hard_failure) at step 'click_03': Step 'Look up member {{inputs.member}}.' failed. Waiting up to 300s.
+15:01:57 [INFO] cua.escalation.intervention: Intervention resolved: request=23991eb0-eb7d-477b-9fe6-4dc161771aec, action=abort
+15:01:57 [INFO] cua.escalation.state_machine: Escalation: paused → aborted {'reason': 'Operator abort: the Look up control is gone; this capability needs re-recording'}
+15:01:57 [INFO] cua.escalation.channel: Intervention finished: {'step_id': 'click_03', 'operator_action': 'abort', 'operator_took_over': False}
+15:01:57 [INFO] cua.browser.session: Browser session stopped
+
+Replay result: ESCALATED
+  Duration: 15958ms
+  Failure: Stopped: aborted by the operator (the Look up control is gone; this capability needs re-recording)
+  Failed at: click_03
+  Screenshot: evidence/screenshots/request_statement_click_03_20260921-150155_failure.png
+  Intervention 1: hard_failure at click_03 -> abort
+    Notes: the Look up control is gone; this capability needs re-recording
+
+  Step trace (2 steps):
+    ✓ navigate_01 [438ms]
+    ✓ type_02 (via strategy=<LocatorStrategy.CSS: 'css'> value='input[name="member"]' role=None description='by name attribute' inside_card=None card_text=None) [64ms]
+
+  Result saved: evidence/logs/12_replay_statement_hard_failure.json

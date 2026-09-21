@@ -1,0 +1,10 @@
+Replaying: Total with tax
+  Steps: 16
+  Inputs:  {'username': 'standard_user', 'items': ['Sauce Labs Backpack', 'Sauce Labs Backpack'], 'password': '***', 'first_name': '***', 'last_name': '***', 'zip': '***'}
+
+Replay result: FAILURE
+  Duration: 0ms
+  Failure: Invalid input: 'items' lists the same value more than once: Sauce Labs Backpack
+  Failed at: input_validation
+
+  Result saved: evidence/logs/04_replay_total_duplicate.json

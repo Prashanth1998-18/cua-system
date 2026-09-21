@@ -1,0 +1,147 @@
+{
+  "capability_id": "22b7faa9-e864-43f9-9402-2fd813b7dedd",
+  "capability_name": "request_statement",
+  "status": "success",
+  "outputs": {
+    "member_status_and_balance": [
+      {
+        "col_0": "Status",
+        "col_1": "Active"
+      },
+      {
+        "col_0": "Balance",
+        "col_1": "$1,204.55"
+      }
+    ]
+  },
+  "outcome_key": null,
+  "outcome_message": null,
+  "failed_at_step": null,
+  "failure_reason": null,
+  "step_results": [
+    {
+      "step_id": "navigate_01",
+      "status": "success",
+      "locator_used": null,
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 429
+    },
+    {
+      "step_id": "type_02",
+      "status": "success",
+      "locator_used": {
+        "strategy": "css",
+        "value": "input[name=\"member\"]",
+        "role": null,
+        "description": "by name attribute",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 140
+    },
+    {
+      "step_id": "click_03",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Look up",
+        "role": "button",
+        "description": "button \"Look up\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 21037
+    },
+    {
+      "step_id": "extract_04",
+      "status": "success",
+      "locator_used": {
+        "strategy": "css",
+        "value": "body > table",
+        "role": null,
+        "description": "by position in the page structure",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": [
+        {
+          "col_0": "Status",
+          "col_1": "Active"
+        },
+        {
+          "col_0": "Balance",
+          "col_1": "$1,204.55"
+        }
+      ],
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 338
+    },
+    {
+      "step_id": "click_05",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Request statement",
+        "role": "button",
+        "description": "button \"Request statement\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 2304
+    }
+  ],
+  "screenshot_path": null,
+  "duration_ms": 26584,
+  "interventions": [
+    {
+      "request_id": "de2e0b2d-4b8f-4bef-893d-beab5aad03ce",
+      "type": "confirmation",
+      "step_id": "click_05",
+      "reason": "Approval needed before: Request the member statement.",
+      "error_message": "",
+      "operator_action": "resume",
+      "operator_took_over": false,
+      "operator_formally_took_control": false,
+      "operator_notes": "approved",
+      "page_before": {
+        "title": "Member Services",
+        "url": "http://127.0.0.1:8099/record?member=13344",
+        "headings": [
+          "Member 13344"
+        ]
+      },
+      "page_after": {
+        "title": "Member Services",
+        "url": "http://127.0.0.1:8099/record?member=13344",
+        "headings": [
+          "Member 13344"
+        ]
+      },
+      "pages_visited_by_operator": [],
+      "human_actions": [],
+      "what_the_human_did": []
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+Replaying: Browse catalog
+  Steps: 6
+  Inputs:  {'username': 'standard_user', 'sort_order': 'Price (low to high)', 'password': '***'}
+15:25:49 [INFO] cua.replay.engine: Starting replay: Browse catalog with inputs {'username': 'standard_user', 'sort_order': 'Price (low to high)', 'password': '***REDACTED***'}
+15:25:49 [INFO] cua.browser.session: Browser session started (headless=True, cdp_port=9222)
+15:25:51 [INFO] cua.browser.session: Browser session stopped
+
+Replay result: SUCCESS
+  Duration: 2231ms
+  Outputs:
+    products: table, 6 rows
+      {'inventory-item-name': 'Sauce Labs Onesie', 'inventory-item-desc': "Rib snap infant onesie for the junior automation engineer in development. Reinforced 3-snap bottom closure, two-needle hemmed sleeved and bottom won't unravel.", 'inventory-item-price': '$7.99'}
+      {'inventory-item-name': 'Sauce Labs Bike Light', 'inventory-item-desc': "A red light isn't the desired state in testing but it sure helps when riding your bike at night. Water-resistant with 3 lighting modes, 1 AAA battery included.", 'inventory-item-price': '$9.99'}
+      {'inventory-item-name': 'Sauce Labs Bolt T-Shirt', 'inventory-item-desc': 'Get your testing superhero on with the Sauce Labs bolt T-shirt. From American Apparel, 100% ringspun combed cotton, heather gray with red bolt.', 'inventory-item-price': '$15.99'}
+      {'inventory-item-name': 'Test.allTheThings() T-Shirt (Red)', 'inventory-item-desc': 'This classic Sauce Labs t-shirt is perfect to wear when cozying up to your keyboard to automate a few tests. Super-soft and comfy ringspun combed cotton.', 'inventory-item-price': '$15.99'}
+      {'inventory-item-name': 'Sauce Labs Backpack', 'inventory-item-desc': 'carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.', 'inventory-item-price': '$29.99'}
+      {'inventory-item-name': 'Sauce Labs Fleece Jacket', 'inventory-item-desc': "It's not every day that you come across a midweight quarter-zip fleece jacket capable of handling everything from a relaxing day outdoors to a busy day at the office.", 'inventory-item-price': '$49.99'}
+
+  Step trace (6 steps):
+    ✓ navigate_01 [1043ms]
+    ✓ type_02 (via strategy=<LocatorStrategy.ROLE: 'role'> value='Username' role='textbox' description='textbox "Username"' inside_card=None card_text=None) [64ms]
+    ✓ type_03 (via strategy=<LocatorStrategy.ROLE: 'role'> value='Password' role='textbox' description='textbox "Password"' inside_card=None card_text=None) [45ms]
+    ✓ click_04 (via strategy=<LocatorStrategy.ROLE: 'role'> value='Login' role='button' description='button "Login"' inside_card=None card_text=None) [49ms]
+    ✓ select_05 (via strategy=<LocatorStrategy.ROLE: 'role'> value='Sort products' role='combobox' description='combobox "Sort products"' inside_card=None card_text=None) [336ms]
+    ✓ extract_06 (via strategy=<LocatorStrategy.CSS: 'css'> value='[id="contents_wrapper"] > div' role=None description='by position in the page structure' inside_card=None card_text=None) → table (6 rows) [331ms]
+
+  Result saved: evidence/logs/02_replay_browse_Price_(low_to_high).json

@@ -1,0 +1,73 @@
+{
+  "capability_id": "22b7faa9-e864-43f9-9402-2fd813b7dedd",
+  "capability_name": "request_statement",
+  "status": "escalated",
+  "outputs": {},
+  "outcome_key": null,
+  "outcome_message": null,
+  "failed_at_step": "click_03",
+  "failure_reason": "Stopped: aborted by the operator (the Look up control is gone; this capability needs re-recording)",
+  "step_results": [
+    {
+      "step_id": "navigate_01",
+      "status": "success",
+      "locator_used": null,
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 438
+    },
+    {
+      "step_id": "type_02",
+      "status": "success",
+      "locator_used": {
+        "strategy": "css",
+        "value": "input[name=\"member\"]",
+        "role": null,
+        "description": "by name attribute",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 64
+    }
+  ],
+  "screenshot_path": "evidence/screenshots/request_statement_click_03_20260921-150155_failure.png",
+  "duration_ms": 15958,
+  "interventions": [
+    {
+      "request_id": "23991eb0-eb7d-477b-9fe6-4dc161771aec",
+      "type": "hard_failure",
+      "step_id": "click_03",
+      "reason": "Step 'Look up member {{inputs.member}}.' failed",
+      "error_message": "All locators exhausted for 'button \"Look up\"':\n  - role=Look up: Locator.wait_for: Timeout 2000ms exceeded.\nCall log:\n  - waiting for get_by_role(\"button\", name=\"Look up\", exact=True) to be visible\n\n  - css=input[value=\"Look up\"]: Locator.wait_for: Timeout 2000ms exceeded.\nCall log:\n  - waiting for locator(\"input[value=\\\"Look up\\\"]\") to be visible\n\n  - css=body > form > table > tbody > tr:nth-of-type(2) > td > input: Locator.wait_for: Timeout 2000ms exceeded.\nCall log:\n  - waiting for locator(\"body > form > table > tbody > tr:nth-of-type(2) > td > input\") to be visible\n (failed again after one retry)",
+      "operator_action": "abort",
+      "operator_took_over": false,
+      "operator_formally_took_control": false,
+      "operator_notes": "the Look up control is gone; this capability needs re-recording",
+      "page_before": {
+        "title": "Member Services",
+        "url": "http://127.0.0.1:8099/",
+        "headings": [
+          "Member Services"
+        ]
+      },
+      "page_after": {
+        "title": "Member Services",
+        "url": "http://127.0.0.1:8099/",
+        "headings": [
+          "Member Services"
+        ]
+      },
+      "pages_visited_by_operator": [],
+      "human_actions": [],
+      "what_the_human_did": []
+    }
+  ]
+}

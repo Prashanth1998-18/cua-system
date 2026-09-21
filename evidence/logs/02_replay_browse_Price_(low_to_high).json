@@ -1,0 +1,180 @@
+{
+  "capability_id": "1c17ae3a-fbcf-4370-961d-116c7bac63c2",
+  "capability_name": "browse_catalog",
+  "status": "success",
+  "outputs": {
+    "products": [
+      {
+        "inventory-item-name": "Sauce Labs Onesie",
+        "inventory-item-desc": "Rib snap infant onesie for the junior automation engineer in development. Reinforced 3-snap bottom closure, two-needle hemmed sleeved and bottom won't unravel.",
+        "inventory-item-price": "$7.99"
+      },
+      {
+        "inventory-item-name": "Sauce Labs Bike Light",
+        "inventory-item-desc": "A red light isn't the desired state in testing but it sure helps when riding your bike at night. Water-resistant with 3 lighting modes, 1 AAA battery included.",
+        "inventory-item-price": "$9.99"
+      },
+      {
+        "inventory-item-name": "Sauce Labs Bolt T-Shirt",
+        "inventory-item-desc": "Get your testing superhero on with the Sauce Labs bolt T-shirt. From American Apparel, 100% ringspun combed cotton, heather gray with red bolt.",
+        "inventory-item-price": "$15.99"
+      },
+      {
+        "inventory-item-name": "Test.allTheThings() T-Shirt (Red)",
+        "inventory-item-desc": "This classic Sauce Labs t-shirt is perfect to wear when cozying up to your keyboard to automate a few tests. Super-soft and comfy ringspun combed cotton.",
+        "inventory-item-price": "$15.99"
+      },
+      {
+        "inventory-item-name": "Sauce Labs Backpack",
+        "inventory-item-desc": "carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.",
+        "inventory-item-price": "$29.99"
+      },
+      {
+        "inventory-item-name": "Sauce Labs Fleece Jacket",
+        "inventory-item-desc": "It's not every day that you come across a midweight quarter-zip fleece jacket capable of handling everything from a relaxing day outdoors to a busy day at the office.",
+        "inventory-item-price": "$49.99"
+      }
+    ]
+  },
+  "outcome_key": null,
+  "outcome_message": null,
+  "failed_at_step": null,
+  "failure_reason": null,
+  "step_results": [
+    {
+      "step_id": "navigate_01",
+      "status": "success",
+      "locator_used": null,
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 1043
+    },
+    {
+      "step_id": "type_02",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Username",
+        "role": "textbox",
+        "description": "textbox \"Username\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 64
+    },
+    {
+      "step_id": "type_03",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Password",
+        "role": "textbox",
+        "description": "textbox \"Password\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 45
+    },
+    {
+      "step_id": "click_04",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Login",
+        "role": "button",
+        "description": "button \"Login\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 49
+    },
+    {
+      "step_id": "select_05",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Sort products",
+        "role": "combobox",
+        "description": "combobox \"Sort products\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 336
+    },
+    {
+      "step_id": "extract_06",
+      "status": "success",
+      "locator_used": {
+        "strategy": "css",
+        "value": "[id=\"contents_wrapper\"] > div",
+        "role": null,
+        "description": "by position in the page structure",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": [
+        {
+          "inventory-item-name": "Sauce Labs Onesie",
+          "inventory-item-desc": "Rib snap infant onesie for the junior automation engineer in development. Reinforced 3-snap bottom closure, two-needle hemmed sleeved and bottom won't unravel.",
+          "inventory-item-price": "$7.99"
+        },
+        {
+          "inventory-item-name": "Sauce Labs Bike Light",
+          "inventory-item-desc": "A red light isn't the desired state in testing but it sure helps when riding your bike at night. Water-resistant with 3 lighting modes, 1 AAA battery included.",
+          "inventory-item-price": "$9.99"
+        },
+        {
+          "inventory-item-name": "Sauce Labs Bolt T-Shirt",
+          "inventory-item-desc": "Get your testing superhero on with the Sauce Labs bolt T-shirt. From American Apparel, 100% ringspun combed cotton, heather gray with red bolt.",
+          "inventory-item-price": "$15.99"
+        },
+        {
+          "inventory-item-name": "Test.allTheThings() T-Shirt (Red)",
+          "inventory-item-desc": "This classic Sauce Labs t-shirt is perfect to wear when cozying up to your keyboard to automate a few tests. Super-soft and comfy ringspun combed cotton.",
+          "inventory-item-price": "$15.99"
+        },
+        {
+          "inventory-item-name": "Sauce Labs Backpack",
+          "inventory-item-desc": "carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.",
+          "inventory-item-price": "$29.99"
+        },
+        {
+          "inventory-item-name": "Sauce Labs Fleece Jacket",
+          "inventory-item-desc": "It's not every day that you come across a midweight quarter-zip fleece jacket capable of handling everything from a relaxing day outdoors to a busy day at the office.",
+          "inventory-item-price": "$49.99"
+        }
+      ],
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 331
+    }
+  ],
+  "screenshot_path": null,
+  "duration_ms": 2231,
+  "interventions": []
+}

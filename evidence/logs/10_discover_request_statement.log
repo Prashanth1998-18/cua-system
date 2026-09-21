@@ -1,0 +1,71 @@
+Starting discovery: Not SauceDemo. This one runs against `scripts/mock_legacy_app.py`, a small back-office
+screen with table markup, no test ids, and two runtime conditions the public demo site
+never produces: a notice that appears on some loads and covers the form, and (on demand)
+a renamed control that breaks the recording. It exists so all three error classes can be
+shown end to end. See `decisions.md` ADR-023.
+
+**You're given:** a member number.
+
+**What to do:**
+1. Go to the app's home page.
+2. A maintenance notice sometimes covers the form. If one is showing, dismiss it first.
+   It won't always be there.
+3. Enter the member number and click "Look up".
+4. Read the member's status and balance.
+5. Click "Request statement".
+
+**Returns:** the member's status and balance.
+
+**Success:** the "Statement requested" page is showing.
+
+**Failure (a legitimate "no"):** none.
+
+**Error (escalate to a human):** the member page never appears, the "Request statement"
+control isn't on the page, or anything else doesn't look like what's described above.
+Stop, report which step, what we expected, and what we actually saw, with a screenshot.
+  Entry point: http://127.0.0.1:8099/
+  Capability:  request_statement
+  Inputs:      {'member': '13344'}
+14:59:49 [INFO] cua.browser.session: Browser session started (headless=True, cdp_port=9222)
+14:59:50 [INFO] cua.discovery.agent: Discovery step 1: asking LLM for next action...
+14:59:51 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+14:59:51 [INFO] cua.discovery.agent: Retrying with 'max_completion_tokens' instead of 'max_tokens'
+14:59:52 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+14:59:52 [INFO] cua.discovery.agent: Retrying with reasoning_effort='none' for tool-call support
+14:59:53 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+14:59:53 [INFO] cua.discovery.agent: Discovery step 1: LLM called click({"ref": "e6", "description": "Dismiss the maintenance notice covering the member lookup form.", "clears_a_blocker": true})
+14:59:54 [INFO] cua.discovery.agent: Discovery step 2: asking LLM for next action...
+14:59:56 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+14:59:56 [INFO] cua.discovery.agent: Discovery step 2: LLM called type_text({"ref": "e13", "text": "13344", "is_input_param": true, "param_name": "member", "description": "Enter the provided member number."})
+14:59:56 [INFO] cua.discovery.agent: Discovery step 3: asking LLM for next action...
+14:59:58 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+14:59:58 [INFO] cua.discovery.agent: Discovery step 3: LLM called click({"ref": "e16", "description": "Look up member 13344.", "if_rejected_outcome": "member_lookup_rejected", "if_rejected_message": "Report the application's displayed reason if the member lookup is rejected.", "page_ref": "e2"})
+14:59:58 [INFO] cua.discovery.agent: Discovery step 4: asking LLM for next action...
+15:00:00 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:00:00 [INFO] cua.discovery.agent: Discovery step 4: LLM called extract({"ref": "f1e3", "output_name": "member_status_and_balance", "as_table": true, "description": "Read the member's status and balance from the member details table."})
+15:00:00 [INFO] cua.discovery.agent: Discovery step 5: asking LLM for next action...
+15:00:02 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:00:02 [INFO] cua.discovery.agent: Discovery step 5: LLM called click({"ref": "f1e12", "description": "Request the member statement.", "changes_data": true, "if_missing_outcome": "request_statement_control_missing", "if_missing_message": "Expected the Request statement control on the member page, but it was not present.", "page_ref": "f1e2"})
+
+  Waiting for you: http://127.0.0.1:8080
+15:00:02 [INFO] cua.escalation.state_machine: Escalation: automation_active → paused {'reason': 'Approval needed before: Request the member statement.'}
+15:00:02 [INFO] cua.escalation.intervention: Intervention request created: 665bc163-f1cb-4bab-91ba-de0b509ee9ee (type=confirmation, step=extract_04)
+15:00:02 [WARNING] cua.escalation.channel: Escalated to operator (confirmation) at step 'extract_04': Approval needed before: Request the member statement.. Waiting up to 300s.
+15:00:05 [INFO] cua.escalation.intervention: Intervention resolved: request=665bc163-f1cb-4bab-91ba-de0b509ee9ee, action=resume
+15:00:05 [INFO] cua.escalation.state_machine: Escalation: paused → automation_active 
+15:00:05 [INFO] cua.escalation.channel: Intervention finished: {'step_id': 'extract_04', 'operator_action': 'resume', 'operator_took_over': False}
+15:00:05 [INFO] cua.discovery.agent: Operator approved: Request the member statement.
+15:00:06 [INFO] cua.discovery.agent: Discovery step 6: asking LLM for next action...
+15:00:08 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:00:08 [INFO] cua.discovery.agent: Discovery step 6: LLM called done({"success": true, "summary": "Statement requested page is showing for member 13344. Status: Active. Balance: $1,204.55."})
+15:00:08 [INFO] cua.discovery.agent: Discovery complete: Statement requested page is showing for member 13344. Status: Active. Balance: $1,204.55.
+15:00:08 [INFO] cua.browser.session: Browser session stopped
+15:00:08 [INFO] cua.discovery.agent: Discovery produced capability 'request_statement' with 5 steps, 1 inputs, 1 outputs
+
+  Intervention: confirmation -> resume
+
+Discovery complete!
+  Steps recorded: 5
+  Inputs:         ['member']
+  Outputs:        ['member_status_and_balance']
+  Artifact saved: evidence/artifacts/request_statement.json

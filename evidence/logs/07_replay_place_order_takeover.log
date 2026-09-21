@@ -1,0 +1,53 @@
+Replaying: Place order
+  Steps: 17
+  Inputs:  {'username': 'standard_user', 'items': ['Sauce Labs Backpack'], 'password': '***', 'first_name': '***', 'last_name': '***', 'zip': '***'}
+  This capability needs your approval before it commits anything.
+
+  Waiting for you: http://127.0.0.1:8080
+15:27:03 [INFO] cua.replay.engine: Starting replay: Place order with inputs {'username': 'standard_user', 'items': ['Sauce Labs Backpack'], 'password': '***REDACTED***', 'first_name': '***REDACTED***', 'last_name': '***REDACTED***', 'zip': '***REDACTED***'}
+15:27:04 [INFO] cua.browser.session: Browser session started (headless=False, cdp_port=9222)
+15:27:09 [INFO] cua.escalation.state_machine: Escalation: automation_active → paused {'reason': 'Approval needed before: Place the order by clicking Finish; human approval is required'}
+15:27:09 [INFO] cua.escalation.intervention: Intervention request created: 6ec8803f-8125-47cf-aae2-e88902bdc145 (type=confirmation, step=click_17)
+15:27:09 [WARNING] cua.escalation.channel: Escalated to operator (confirmation) at step 'click_17': Approval needed before: Place the order by clicking Finish; human approval is required. Waiting up to 300s.
+15:27:10 [INFO] cua.escalation.state_machine: Escalation: paused → human_active 
+15:27:10 [INFO] cua.escalation.actions: Operator action: clicked button "Finish"
+15:27:11 [INFO] cua.escalation.intervention: Intervention resolved: request=6ec8803f-8125-47cf-aae2-e88902bdc145, action=resume
+15:27:11 [INFO] cua.escalation.state_machine: Escalation: human_active → automation_active 
+15:27:11 [INFO] cua.escalation.channel: Intervention finished: {'step_id': 'click_17', 'operator_action': 'takeover', 'operator_took_over': True}
+15:27:11 [INFO] cua.browser.session: Browser session stopped
+
+Replay result: SUCCESS
+  Duration: 8046ms
+  Outputs:
+    items: table, 1 rows
+      {'item-quantity': '1', 'inventory-item-name': 'Sauce Labs Backpack', 'inventory-item-desc': 'carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.', 'inventory-item-price': '$29.99'}
+    item_total: Item total: $29.99
+    tax: Tax: $2.40
+    total: Total: $32.39
+    confirmation_message: Thank you for your order!
+  Intervention 1: confirmation at click_17 -> takeover, operator took over
+    Notes: Placed the order myself during the handoff
+    Operator said: completed
+    Operator visited: ['https://www.saucedemo.com/checkout-complete.html']
+    Operator clicked button "Finish"
+
+  Step trace (17 steps):
+    ✓ navigate_01 [1117ms]
+    ✓ type_02 (via strategy=<LocatorStrategy.ROLE: 'role'> value='Username' role='textbox' description='textbox "Username"' inside_card=None card_text=None) [46ms]
+    ✓ type_03 (via strategy=<LocatorStrategy.ROLE: 'role'> value='Password' role='textbox' description='textbox "Password"' inside_card=None card_text=None) [50ms]
+    ✓ click_04 (via strategy=<LocatorStrategy.ROLE: 'role'> value='Login' role='button' description='button "Login"' inside_card=None card_text=None) [87ms]
+    ✓ click_05[1] (via strategy=<LocatorStrategy.ROLE: 'role'> value='Add to cart' role='button' description='button "Add to cart" in the card showing "Sauce Labs Backpack"' inside_card='[data-test="inventory-item-description"]' card_text='Sauce Labs Backpack') [128ms]
+    ✓ click_07 (via strategy=<LocatorStrategy.CSS: 'css'> value='[data-test="shopping-cart-link"]' role=None description='by test attribute' inside_card=None card_text=None) [2058ms]
+    ✓ click_08 (via strategy=<LocatorStrategy.ROLE: 'role'> value='Checkout' role='button' description='button "Checkout"' inside_card=None card_text=None) [98ms]
+    ✓ type_09 (via strategy=<LocatorStrategy.ROLE: 'role'> value='First Name' role='textbox' description='textbox "First Name"' inside_card=None card_text=None) [37ms]
+    ✓ type_10 (via strategy=<LocatorStrategy.ROLE: 'role'> value='Last Name' role='textbox' description='textbox "Last Name"' inside_card=None card_text=None) [12ms]
+    ✓ type_11 (via strategy=<LocatorStrategy.ROLE: 'role'> value='Zip/Postal Code' role='textbox' description='textbox "Zip/Postal Code"' inside_card=None card_text=None) [11ms]
+    ✓ click_12 (via strategy=<LocatorStrategy.ROLE: 'role'> value='Continue' role='button' description='button "Continue"' inside_card=None card_text=None) [68ms]
+    ✓ extract_13 (via strategy=<LocatorStrategy.CSS: 'css'> value='[data-test="cart-list"]' role=None description='by test attribute' inside_card=None card_text=None) → table (1 rows) [328ms]
+    ✓ extract_14 (via strategy=<LocatorStrategy.CSS: 'css'> value='[data-test="subtotal-label"]' role=None description='by test attribute' inside_card=None card_text=None) → Item total: $29.99 [318ms]
+    ✓ extract_15 (via strategy=<LocatorStrategy.CSS: 'css'> value='[data-test="tax-label"]' role=None description='by test attribute' inside_card=None card_text=None) → Tax: $2.40 [321ms]
+    ✓ extract_16 (via strategy=<LocatorStrategy.CSS: 'css'> value='[data-test="total-label"]' role=None description='by test attribute' inside_card=None card_text=None) → Total: $32.39 [323ms]
+    ✓ click_17 [1834ms]
+    ✓ extract_18 (via strategy=<LocatorStrategy.CSS: 'css'> value='[data-test="complete-header"]' role=None description='by test attribute' inside_card=None card_text=None) → Thank you for your order! [321ms]
+
+  Result saved: evidence/logs/07_replay_place_order_takeover.json

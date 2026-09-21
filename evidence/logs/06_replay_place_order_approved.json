@@ -1,0 +1,389 @@
+{
+  "capability_id": "06785a8c-06b1-497b-b2ca-dbebba0c2afb",
+  "capability_name": "place_order",
+  "status": "success",
+  "outputs": {
+    "items": [
+      {
+        "item-quantity": "1",
+        "inventory-item-name": "Sauce Labs Backpack",
+        "inventory-item-desc": "carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.",
+        "inventory-item-price": "$29.99"
+      },
+      {
+        "item-quantity": "1",
+        "inventory-item-name": "Sauce Labs Bike Light",
+        "inventory-item-desc": "A red light isn't the desired state in testing but it sure helps when riding your bike at night. Water-resistant with 3 lighting modes, 1 AAA battery included.",
+        "inventory-item-price": "$9.99"
+      }
+    ],
+    "item_total": "Item total: $39.98",
+    "tax": "Tax: $3.20",
+    "total": "Total: $43.18",
+    "confirmation_message": "Thank you for your order!"
+  },
+  "outcome_key": null,
+  "outcome_message": null,
+  "failed_at_step": null,
+  "failure_reason": null,
+  "step_results": [
+    {
+      "step_id": "navigate_01",
+      "status": "success",
+      "locator_used": null,
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 1214
+    },
+    {
+      "step_id": "type_02",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Username",
+        "role": "textbox",
+        "description": "textbox \"Username\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 62
+    },
+    {
+      "step_id": "type_03",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Password",
+        "role": "textbox",
+        "description": "textbox \"Password\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 51
+    },
+    {
+      "step_id": "click_04",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Login",
+        "role": "button",
+        "description": "button \"Login\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 77
+    },
+    {
+      "step_id": "click_05[1]",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Add to cart",
+        "role": "button",
+        "description": "button \"Add to cart\" in the card showing \"Sauce Labs Backpack\"",
+        "inside_card": "[data-test=\"inventory-item-description\"]",
+        "card_text": "Sauce Labs Backpack"
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 88
+    },
+    {
+      "step_id": "click_05[2]",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Add to cart",
+        "role": "button",
+        "description": "button \"Add to cart\" in the card showing \"Sauce Labs Bike Light\"",
+        "inside_card": "[data-test=\"inventory-item-description\"]",
+        "card_text": "Sauce Labs Bike Light"
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 62
+    },
+    {
+      "step_id": "click_07",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Cart, 2 items",
+        "role": "button",
+        "description": "button \"Cart, 2 items\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 69
+    },
+    {
+      "step_id": "click_08",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Checkout",
+        "role": "button",
+        "description": "button \"Checkout\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 135
+    },
+    {
+      "step_id": "type_09",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "First Name",
+        "role": "textbox",
+        "description": "textbox \"First Name\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 37
+    },
+    {
+      "step_id": "type_10",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Last Name",
+        "role": "textbox",
+        "description": "textbox \"Last Name\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 13
+    },
+    {
+      "step_id": "type_11",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Zip/Postal Code",
+        "role": "textbox",
+        "description": "textbox \"Zip/Postal Code\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 7
+    },
+    {
+      "step_id": "click_12",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Continue",
+        "role": "button",
+        "description": "button \"Continue\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 74
+    },
+    {
+      "step_id": "extract_13",
+      "status": "success",
+      "locator_used": {
+        "strategy": "css",
+        "value": "[data-test=\"cart-list\"]",
+        "role": null,
+        "description": "by test attribute",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": [
+        {
+          "item-quantity": "1",
+          "inventory-item-name": "Sauce Labs Backpack",
+          "inventory-item-desc": "carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.",
+          "inventory-item-price": "$29.99"
+        },
+        {
+          "item-quantity": "1",
+          "inventory-item-name": "Sauce Labs Bike Light",
+          "inventory-item-desc": "A red light isn't the desired state in testing but it sure helps when riding your bike at night. Water-resistant with 3 lighting modes, 1 AAA battery included.",
+          "inventory-item-price": "$9.99"
+        }
+      ],
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 321
+    },
+    {
+      "step_id": "extract_14",
+      "status": "success",
+      "locator_used": {
+        "strategy": "css",
+        "value": "[data-test=\"subtotal-label\"]",
+        "role": null,
+        "description": "by test attribute",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": "Item total: $39.98",
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 314
+    },
+    {
+      "step_id": "extract_15",
+      "status": "success",
+      "locator_used": {
+        "strategy": "css",
+        "value": "[data-test=\"tax-label\"]",
+        "role": null,
+        "description": "by test attribute",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": "Tax: $3.20",
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 320
+    },
+    {
+      "step_id": "extract_16",
+      "status": "success",
+      "locator_used": {
+        "strategy": "css",
+        "value": "[data-test=\"total-label\"]",
+        "role": null,
+        "description": "by test attribute",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": "Total: $43.18",
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 322
+    },
+    {
+      "step_id": "click_17",
+      "status": "success",
+      "locator_used": {
+        "strategy": "role",
+        "value": "Finish",
+        "role": "button",
+        "description": "button \"Finish\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": null,
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 762
+    },
+    {
+      "step_id": "extract_18",
+      "status": "success",
+      "locator_used": {
+        "strategy": "css",
+        "value": "[data-test=\"complete-header\"]",
+        "role": null,
+        "description": "by test attribute",
+        "inside_card": null,
+        "card_text": null
+      },
+      "extracted_value": "Thank you for your order!",
+      "error_class": null,
+      "error_message": null,
+      "outcome_key": null,
+      "screenshot_path": null,
+      "duration_ms": 323
+    }
+  ],
+  "screenshot_path": null,
+  "duration_ms": 6341,
+  "interventions": [
+    {
+      "request_id": "dd3e30be-ef30-4906-bbd1-6a01ee8610cc",
+      "type": "confirmation",
+      "step_id": "click_17",
+      "reason": "Approval needed before: Place the order by clicking Finish; human approval is required",
+      "error_message": "",
+      "operator_action": "resume",
+      "operator_took_over": false,
+      "operator_formally_took_control": false,
+      "operator_notes": "Approved by operator: 2 items, reviewed total",
+      "page_before": {
+        "title": "Swag Labs",
+        "url": "https://www.saucedemo.com/checkout-step-two.html",
+        "headings": []
+      },
+      "page_after": {
+        "title": "Swag Labs",
+        "url": "https://www.saucedemo.com/checkout-step-two.html",
+        "headings": []
+      },
+      "pages_visited_by_operator": [],
+      "human_actions": [],
+      "what_the_human_did": []
+    }
+  ]
+}

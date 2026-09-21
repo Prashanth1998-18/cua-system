@@ -1,0 +1,25 @@
+Replaying: Place order
+  Steps: 17
+  Inputs:  {'username': 'locked_out_user', 'items': ['Sauce Labs Backpack'], 'password': '***', 'first_name': '***', 'last_name': '***', 'zip': '***'}
+  This capability needs your approval before it commits anything.
+
+  Waiting for you: http://127.0.0.1:8080
+15:27:13 [INFO] cua.replay.engine: Starting replay: Place order with inputs {'username': 'locked_out_user', 'items': ['Sauce Labs Backpack'], 'password': '***REDACTED***', 'first_name': '***REDACTED***', 'last_name': '***REDACTED***', 'zip': '***REDACTED***'}
+15:27:14 [INFO] cua.browser.session: Browser session started (headless=False, cdp_port=9222)
+15:27:25 [WARNING] cua.replay.engine: Step 'click_04' timed out: After 'Log in with the provided credentials', expected the "inventory.html" page within 10s; instead saw page "Swag Labs" (https://www.saucedemo.com/) with headings "Accepted usernames are:", "Password for all users:"
+15:27:25 [INFO] cua.replay.handlers: Error handler matched: login_rejected (classification=business_outcome, condition=alert_visible='')
+15:27:26 [INFO] cua.browser.session: Browser session stopped
+
+Replay result: BUSINESS_OUTCOME
+  Duration: 12415ms
+  Outcome: login_rejected
+  Message: Report the application's displayed login rejection reason: Epic sadface: Sorry, this user has been locked out.
+  Screenshot: evidence/screenshots/place_order_click_04_20260921-152725_failure.png
+
+  Step trace (4 steps):
+    ✓ navigate_01 [1094ms]
+    ✓ type_02 (via strategy=<LocatorStrategy.ROLE: 'role'> value='Username' role='textbox' description='textbox "Username"' inside_card=None card_text=None) [41ms]
+    ✓ type_03 (via strategy=<LocatorStrategy.ROLE: 'role'> value='Password' role='textbox' description='textbox "Password"' inside_card=None card_text=None) [51ms]
+    ✗ click_04 [10176ms]
+
+  Result saved: evidence/logs/09_replay_place_order_locked_out.json

@@ -1,0 +1,104 @@
+Starting discovery: Only for when someone explicitly asks for the cost *including tax*. For the price of an item,
+use Browse catalog instead.
+
+**You're given:** a username, a password, a list of product names (exactly as they appear in
+the catalog, each at most once), and the customer's first name, last name and zip code. The
+zip code must be an existing 5-digit US zip code.
+
+**What to do:**
+1. Go to https://www.saucedemo.com and log in with the username and password.
+2. Wait for the Products page to finish loading.
+3. For each product in the list, click the "Add to cart" button on that product.
+4. Open the cart, and click Checkout.
+5. Enter the customer's first name, last name and zip code, and click Continue.
+6. On the review page, read each item's name and price, the item total, the tax, and the total.
+7. Click Cancel. No order is placed.
+
+**Returns:** each item's name and price, the item total, the tax, and the total.
+
+**Success:** the review page showed every requested product, and all of the above has been read.
+
+**Failure (a legitimate "no"):** the site rejects the login (for example the account is locked
+out) — report "login rejected" with the reason the site shows; or a requested product isn't in
+the catalog — report "product not found" with its name.
+
+**Error (escalate to a human):** the checkout sends you back to the cart instead of the review
+page, a page never finishes loading even after one retry, or anything else doesn't look like
+what's described above. Stop, report
+which step, what we expected, and what we actually saw, with a screenshot, and hand it to a
+human.
+  Entry point: https://www.saucedemo.com
+  Capability:  total_with_tax
+  Inputs:      {'username': 'standard_user', 'items': ['Sauce Labs Backpack', 'Sauce Labs Bike Light']}
+  Secrets:     ['password', 'first_name', 'last_name', 'zip'] (values withheld from the LLM and logs)
+15:07:16 [INFO] cua.browser.session: Browser session started (headless=True, cdp_port=9222)
+15:07:17 [INFO] cua.discovery.agent: Discovery step 1: asking LLM for next action...
+15:07:18 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+15:07:18 [INFO] cua.discovery.agent: Retrying with 'max_completion_tokens' instead of 'max_tokens'
+15:07:18 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+15:07:18 [INFO] cua.discovery.agent: Retrying with reasoning_effort='none' for tool-call support
+15:07:20 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:07:20 [INFO] cua.discovery.agent: Discovery step 1: LLM called type_text({"ref": "e11", "text": "standard_user", "is_input_param": true, "param_name": "username", "description": "Username for login"})
+15:07:20 [INFO] cua.discovery.agent: Discovery step 2: asking LLM for next action...
+15:07:21 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:07:21 [INFO] cua.discovery.agent: Discovery step 2: LLM called type_text({"ref": "e13", "text": "{{inputs.password}}", "is_input_param": true, "param_name": "password", "is_sensitive": true, "description": "Password for login"})
+15:07:21 [INFO] cua.discovery.agent: Discovery step 3: asking LLM for next action...
+15:07:23 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:07:23 [INFO] cua.discovery.agent: Discovery step 3: LLM called click({"ref": "e15", "description": "Log in to the Swag Labs catalog", "if_rejected_outcome": "login_rejected", "if_rejected_message": "Report login rejected with the reason shown by the site"})
+15:07:24 [INFO] cua.discovery.agent: Discovery step 4: asking LLM for next action...
+15:07:25 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:07:25 [INFO] cua.discovery.agent: Discovery step 4: LLM called click({"ref": "e54", "description": "Add Sauce Labs Backpack to the cart"})
+15:07:26 [INFO] cua.discovery.agent: Discovery step 5: asking LLM for next action...
+15:07:27 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:07:27 [INFO] cua.discovery.agent: Discovery step 5: LLM called click({"ref": "e66", "description": "Add Sauce Labs Bike Light to the cart"})
+15:07:28 [INFO] cua.discovery.agent: Discovery step 6: asking LLM for next action...
+15:07:29 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:07:29 [INFO] cua.discovery.agent: Discovery step 6: LLM called click({"ref": "e127", "description": "Open the cart containing the requested products"})
+15:07:30 [INFO] cua.discovery.agent: Discovery step 7: asking LLM for next action...
+15:07:31 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:07:31 [INFO] cua.discovery.agent: Discovery step 7: LLM called click({"ref": "e168", "description": "Proceed from the cart to checkout"})
+15:07:32 [INFO] cua.discovery.agent: Discovery step 8: asking LLM for next action...
+15:07:34 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:07:34 [INFO] cua.discovery.agent: Discovery step 8: LLM called type_text({"ref": "e197", "text": "{{inputs.first_name}}", "is_input_param": true, "param_name": "first_name", "description": "Customer first name"})
+15:07:34 [INFO] cua.discovery.agent: Discovery step 9: asking LLM for next action...
+15:07:35 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:07:36 [INFO] cua.discovery.agent: Discovery step 9: LLM called type_text({"ref": "e199", "text": "{{inputs.last_name}}", "is_input_param": true, "param_name": "last_name", "description": "Customer last name"})
+15:07:36 [INFO] cua.discovery.agent: Discovery step 10: asking LLM for next action...
+15:07:37 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:07:37 [INFO] cua.discovery.agent: Discovery step 10: LLM called set_input_rule({"param_name": "zip", "rule": "us_zip_code"})
+15:07:38 [INFO] cua.discovery.agent: Discovery step 11: asking LLM for next action...
+15:07:39 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:07:39 [INFO] cua.discovery.agent: Discovery step 11: LLM called type_text({"ref": "e201", "text": "{{inputs.zip}}", "is_input_param": true, "param_name": "zip", "description": "Customer US ZIP code"})
+15:07:39 [INFO] cua.discovery.agent: Discovery step 12: asking LLM for next action...
+15:07:41 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:07:41 [INFO] cua.discovery.agent: Discovery step 12: LLM called click({"ref": "e205", "description": "Submit checkout information to reach the order review"})
+15:07:41 [INFO] cua.discovery.agent: Discovery step 13: asking LLM for next action...
+15:07:43 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:07:43 [INFO] cua.discovery.agent: Discovery step 13: LLM called extract({"ref": "e233", "output_name": "items_and_prices", "as_list": true, "description": "Each requested item's name and price on the review page"})
+15:07:43 [INFO] cua.discovery.agent: Discovery step 14: asking LLM for next action...
+15:07:45 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:07:45 [INFO] cua.discovery.agent: Discovery step 14: LLM called extract({"ref": "e237", "output_name": "items_and_prices", "as_list": true, "description": "Requested item names and prices shown in the review list"})
+15:07:46 [INFO] cua.discovery.agent: Discovery step 15: asking LLM for next action...
+15:07:47 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:07:47 [INFO] cua.discovery.agent: Discovery step 15: LLM called extract({"ref": "e259", "output_name": "item_total", "description": "Item total shown on the review page"})
+15:07:48 [INFO] cua.discovery.agent: Discovery step 16: asking LLM for next action...
+15:07:49 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:07:49 [INFO] cua.discovery.agent: Discovery step 16: LLM called extract({"ref": "e260", "output_name": "tax", "description": "Tax shown on the review page"})
+15:07:50 [INFO] cua.discovery.agent: Discovery step 17: asking LLM for next action...
+15:07:51 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:07:51 [INFO] cua.discovery.agent: Discovery step 17: LLM called extract({"ref": "e261", "output_name": "total", "description": "Total shown on the review page"})
+15:07:52 [INFO] cua.discovery.agent: Discovery step 18: asking LLM for next action...
+15:07:53 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:07:53 [INFO] cua.discovery.agent: Discovery step 18: LLM called click({"ref": "e263", "description": "Cancel checkout without placing an order"})
+15:07:54 [INFO] cua.discovery.agent: Discovery step 19: asking LLM for next action...
+15:07:55 [INFO] httpx2: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+15:07:55 [INFO] cua.discovery.agent: Discovery step 19: LLM called done({"success": true, "summary": "Review page showed Sauce Labs Backpack $29.99 and Sauce Labs Bike Light $9.99. Item total: $39.98; tax: $3.20; total: $43.18. Checkout was canceled without placing an order."})
+15:07:55 [INFO] cua.discovery.agent: Discovery complete: Review page showed Sauce Labs Backpack $29.99 and Sauce Labs Bike Light $9.99. Item total: $39.98; tax: $3.20; total: $43.18. Checkout was canceled without placing an order.
+15:07:55 [INFO] cua.browser.session: Browser session stopped
+15:07:55 [INFO] cua.discovery.agent: Discovery produced capability 'total_with_tax' with 16 steps, 6 inputs, 4 outputs
+
+Discovery complete!
+  Steps recorded: 16
+  Inputs:         ['username', 'password', 'first_name', 'last_name', 'zip', 'items']
+  Outputs:        ['items_and_prices', 'item_total', 'tax', 'total']
+  Artifact saved: evidence/artifacts/total_with_tax.json

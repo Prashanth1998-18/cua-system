@@ -1,0 +1,1020 @@
+{
+  "schema_version": "1.0.0",
+  "meta": {
+    "id": "06785a8c-06b1-497b-b2ca-dbebba0c2afb",
+    "name": "place_order",
+    "display_name": "Place order",
+    "description": "Place an order for a list of catalog items and return the confirmation",
+    "version": "1.0.0",
+    "created_at": "2026-09-21T20:08:48.062776Z",
+    "source_discovery_run_id": "239e51e3-a25f-44b0-a03e-e5c8c8985d8f",
+    "surface": {
+      "type": "web",
+      "entry_point": "https://www.saucedemo.com",
+      "app_identifier": "place_order",
+      "tenant_id": null
+    },
+    "human_assisted": []
+  },
+  "contract": {
+    "inputs": {
+      "username": {
+        "type": "string",
+        "required": true,
+        "sensitive": false,
+        "default": null,
+        "description": "Enter the provided username",
+        "allowed_values": null,
+        "format": null
+      },
+      "first_name": {
+        "type": "string",
+        "required": true,
+        "sensitive": true,
+        "default": null,
+        "description": "Enter the customer's first name",
+        "allowed_values": null,
+        "format": null
+      },
+      "last_name": {
+        "type": "string",
+        "required": true,
+        "sensitive": true,
+        "default": null,
+        "description": "Enter the customer's last name",
+        "allowed_values": null,
+        "format": null
+      },
+      "zip": {
+        "type": "string",
+        "required": true,
+        "sensitive": true,
+        "default": null,
+        "description": "Enter the customer's ZIP code",
+        "allowed_values": null,
+        "format": "us_zip_code"
+      },
+      "items": {
+        "type": "list",
+        "required": true,
+        "sensitive": false,
+        "default": null,
+        "description": "Parameterized from the value supplied as 'items' during discovery",
+        "allowed_values": [
+          "Sauce Labs Backpack",
+          "Sauce Labs Bike Light",
+          "Sauce Labs Bolt T-Shirt",
+          "Sauce Labs Fleece Jacket",
+          "Sauce Labs Onesie",
+          "Test.allTheThings() T-Shirt (Red)"
+        ],
+        "format": null
+      },
+      "password": {
+        "type": "string",
+        "required": true,
+        "sensitive": true,
+        "default": null,
+        "description": "Input 'password' used during discovery",
+        "allowed_values": null,
+        "format": null
+      }
+    },
+    "outputs": {
+      "items": {
+        "type": "table",
+        "extract_from_step": "extract_13",
+        "description": "Each ordered item's name and price",
+        "columns": [
+          "item-quantity",
+          "inventory-item-name",
+          "inventory-item-desc",
+          "inventory-item-price"
+        ],
+        "card_selector": "[data-test=\"inventory-item\"]"
+      },
+      "item_total": {
+        "type": "string",
+        "extract_from_step": "extract_14",
+        "description": "The order item total",
+        "columns": null,
+        "card_selector": null
+      },
+      "tax": {
+        "type": "string",
+        "extract_from_step": "extract_15",
+        "description": "The order tax",
+        "columns": null,
+        "card_selector": null
+      },
+      "total": {
+        "type": "string",
+        "extract_from_step": "extract_16",
+        "description": "The order total",
+        "columns": null,
+        "card_selector": null
+      },
+      "confirmation_message": {
+        "type": "string",
+        "extract_from_step": "extract_18",
+        "description": "The thank-you confirmation message",
+        "columns": null,
+        "card_selector": null
+      }
+    },
+    "success_condition": {
+      "type": "element_visible",
+      "value": "",
+      "locator": {
+        "strategy": "role",
+        "value": "Thank you for your order!",
+        "role": "heading",
+        "description": "heading \"Thank you for your order!\"",
+        "inside_card": null,
+        "card_text": null
+      },
+      "description": "the \"Thank you for your order!\" heading"
+    }
+  },
+  "steps": [
+    {
+      "id": "navigate_01",
+      "action": "navigate",
+      "description": "Navigate to Place order entry point",
+      "target": null,
+      "value": null,
+      "url": "https://www.saucedemo.com",
+      "extract_output_key": null,
+      "checkpoint": null,
+      "error_handlers": [],
+      "risk_level": "safe",
+      "waits_for_network": false,
+      "for_each": null,
+      "timeout_ms": 10000,
+      "wait_before_ms": 0
+    },
+    {
+      "id": "type_02",
+      "action": "type",
+      "description": "Enter the provided username",
+      "target": {
+        "locators": [
+          {
+            "strategy": "role",
+            "value": "Username",
+            "role": "textbox",
+            "description": "textbox \"Username\"",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[data-test=\"username\"]",
+            "role": null,
+            "description": "by test attribute",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[id=\"user-name\"]",
+            "role": null,
+            "description": "by id",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "input[name=\"user-name\"]",
+            "role": null,
+            "description": "by name attribute",
+            "inside_card": null,
+            "card_text": null
+          }
+        ],
+        "description": "textbox \"Username\"",
+        "iframe_path": null
+      },
+      "value": "{{inputs.username}}",
+      "url": null,
+      "extract_output_key": null,
+      "checkpoint": null,
+      "error_handlers": [],
+      "risk_level": "safe",
+      "waits_for_network": false,
+      "for_each": null,
+      "timeout_ms": 5000,
+      "wait_before_ms": 0
+    },
+    {
+      "id": "type_03",
+      "action": "type",
+      "description": "Enter the provided password",
+      "target": {
+        "locators": [
+          {
+            "strategy": "role",
+            "value": "Password",
+            "role": "textbox",
+            "description": "textbox \"Password\"",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[data-test=\"password\"]",
+            "role": null,
+            "description": "by test attribute",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[id=\"password\"]",
+            "role": null,
+            "description": "by id",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "input[name=\"password\"]",
+            "role": null,
+            "description": "by name attribute",
+            "inside_card": null,
+            "card_text": null
+          }
+        ],
+        "description": "textbox \"Password\"",
+        "iframe_path": null
+      },
+      "value": "{{inputs.password}}",
+      "url": null,
+      "extract_output_key": null,
+      "checkpoint": null,
+      "error_handlers": [],
+      "risk_level": "safe",
+      "waits_for_network": false,
+      "for_each": null,
+      "timeout_ms": 5000,
+      "wait_before_ms": 0
+    },
+    {
+      "id": "click_04",
+      "action": "click",
+      "description": "Log in with the provided credentials",
+      "target": {
+        "locators": [
+          {
+            "strategy": "role",
+            "value": "Login",
+            "role": "button",
+            "description": "button \"Login\"",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[data-test=\"login-button\"]",
+            "role": null,
+            "description": "by test attribute",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[id=\"login-button\"]",
+            "role": null,
+            "description": "by id",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "input[name=\"login-button\"]",
+            "role": null,
+            "description": "by name attribute",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "input[value=\"Login\"]",
+            "role": null,
+            "description": "by button label",
+            "inside_card": null,
+            "card_text": null
+          }
+        ],
+        "description": "button \"Login\"",
+        "iframe_path": null
+      },
+      "value": null,
+      "url": null,
+      "extract_output_key": null,
+      "checkpoint": {
+        "type": "url_contains",
+        "value": "inventory.html",
+        "locator": null,
+        "description": "the \"inventory.html\" page"
+      },
+      "error_handlers": [
+        {
+          "condition": {
+            "type": "alert_visible",
+            "value": "",
+            "locator": null
+          },
+          "also_requires": [
+            {
+              "type": "url_not_contains",
+              "value": "inventory.html",
+              "locator": null
+            }
+          ],
+          "classification": "business_outcome",
+          "outcome_key": "login_rejected",
+          "outcome_message": "Report the application's displayed login rejection reason",
+          "report_page_message": true,
+          "recovery": null,
+          "recovery_target": null,
+          "max_retries": 0
+        }
+      ],
+      "risk_level": "safe",
+      "waits_for_network": false,
+      "for_each": null,
+      "timeout_ms": 10000,
+      "wait_before_ms": 0
+    },
+    {
+      "id": "click_05",
+      "action": "click",
+      "description": "Add {{inputs.items}} to the cart",
+      "target": {
+        "locators": [
+          {
+            "strategy": "role",
+            "value": "Add to cart",
+            "role": "button",
+            "description": "button \"Add to cart\" in the card showing \"{{inputs.items}}\"",
+            "inside_card": "[data-test=\"inventory-item-description\"]",
+            "card_text": "{{inputs.items}}"
+          },
+          {
+            "strategy": "css",
+            "value": "button",
+            "role": null,
+            "description": "the button in the card showing \"{{inputs.items}}\"",
+            "inside_card": "[data-test=\"inventory-item-description\"]",
+            "card_text": "{{inputs.items}}"
+          }
+        ],
+        "description": "button \"Add to cart\" for \"{{inputs.items}}\"",
+        "iframe_path": null
+      },
+      "value": null,
+      "url": null,
+      "extract_output_key": null,
+      "checkpoint": null,
+      "error_handlers": [],
+      "risk_level": "safe",
+      "waits_for_network": false,
+      "for_each": "items",
+      "timeout_ms": 5000,
+      "wait_before_ms": 0
+    },
+    {
+      "id": "click_07",
+      "action": "click",
+      "description": "Open the cart containing the requested products",
+      "target": {
+        "locators": [
+          {
+            "strategy": "role",
+            "value": "Cart, 2 items",
+            "role": "button",
+            "description": "button \"Cart, 2 items\"",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[data-test=\"shopping-cart-link\"]",
+            "role": null,
+            "description": "by test attribute",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[id=\"shopping_cart_container\"] > a",
+            "role": null,
+            "description": "by position in the page structure",
+            "inside_card": null,
+            "card_text": null
+          }
+        ],
+        "description": "button \"Cart, 2 items\"",
+        "iframe_path": null
+      },
+      "value": null,
+      "url": null,
+      "extract_output_key": null,
+      "checkpoint": {
+        "type": "url_contains",
+        "value": "cart.html",
+        "locator": null,
+        "description": "the \"cart.html\" page"
+      },
+      "error_handlers": [],
+      "risk_level": "safe",
+      "waits_for_network": false,
+      "for_each": null,
+      "timeout_ms": 10000,
+      "wait_before_ms": 0
+    },
+    {
+      "id": "click_08",
+      "action": "click",
+      "description": "Proceed to checkout",
+      "target": {
+        "locators": [
+          {
+            "strategy": "role",
+            "value": "Checkout",
+            "role": "button",
+            "description": "button \"Checkout\"",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[data-test=\"checkout\"]",
+            "role": null,
+            "description": "by test attribute",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[id=\"checkout\"]",
+            "role": null,
+            "description": "by id",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "button[name=\"checkout\"]",
+            "role": null,
+            "description": "by name attribute",
+            "inside_card": null,
+            "card_text": null
+          }
+        ],
+        "description": "button \"Checkout\"",
+        "iframe_path": null
+      },
+      "value": null,
+      "url": null,
+      "extract_output_key": null,
+      "checkpoint": {
+        "type": "url_contains",
+        "value": "checkout-step-one.html",
+        "locator": null,
+        "description": "the \"checkout-step-one.html\" page"
+      },
+      "error_handlers": [],
+      "risk_level": "safe",
+      "waits_for_network": false,
+      "for_each": null,
+      "timeout_ms": 10000,
+      "wait_before_ms": 0
+    },
+    {
+      "id": "type_09",
+      "action": "type",
+      "description": "Enter the customer's first name",
+      "target": {
+        "locators": [
+          {
+            "strategy": "role",
+            "value": "First Name",
+            "role": "textbox",
+            "description": "textbox \"First Name\"",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[data-test=\"firstName\"]",
+            "role": null,
+            "description": "by test attribute",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[id=\"first-name\"]",
+            "role": null,
+            "description": "by id",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "input[name=\"firstName\"]",
+            "role": null,
+            "description": "by name attribute",
+            "inside_card": null,
+            "card_text": null
+          }
+        ],
+        "description": "textbox \"First Name\"",
+        "iframe_path": null
+      },
+      "value": "{{inputs.first_name}}",
+      "url": null,
+      "extract_output_key": null,
+      "checkpoint": null,
+      "error_handlers": [],
+      "risk_level": "safe",
+      "waits_for_network": false,
+      "for_each": null,
+      "timeout_ms": 5000,
+      "wait_before_ms": 0
+    },
+    {
+      "id": "type_10",
+      "action": "type",
+      "description": "Enter the customer's last name",
+      "target": {
+        "locators": [
+          {
+            "strategy": "role",
+            "value": "Last Name",
+            "role": "textbox",
+            "description": "textbox \"Last Name\"",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[data-test=\"lastName\"]",
+            "role": null,
+            "description": "by test attribute",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[id=\"last-name\"]",
+            "role": null,
+            "description": "by id",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "input[name=\"lastName\"]",
+            "role": null,
+            "description": "by name attribute",
+            "inside_card": null,
+            "card_text": null
+          }
+        ],
+        "description": "textbox \"Last Name\"",
+        "iframe_path": null
+      },
+      "value": "{{inputs.last_name}}",
+      "url": null,
+      "extract_output_key": null,
+      "checkpoint": null,
+      "error_handlers": [],
+      "risk_level": "safe",
+      "waits_for_network": false,
+      "for_each": null,
+      "timeout_ms": 5000,
+      "wait_before_ms": 0
+    },
+    {
+      "id": "type_11",
+      "action": "type",
+      "description": "Enter the customer's ZIP code",
+      "target": {
+        "locators": [
+          {
+            "strategy": "role",
+            "value": "Zip/Postal Code",
+            "role": "textbox",
+            "description": "textbox \"Zip/Postal Code\"",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[data-test=\"postalCode\"]",
+            "role": null,
+            "description": "by test attribute",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[id=\"postal-code\"]",
+            "role": null,
+            "description": "by id",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "input[name=\"postalCode\"]",
+            "role": null,
+            "description": "by name attribute",
+            "inside_card": null,
+            "card_text": null
+          }
+        ],
+        "description": "textbox \"Zip/Postal Code\"",
+        "iframe_path": null
+      },
+      "value": "{{inputs.zip}}",
+      "url": null,
+      "extract_output_key": null,
+      "checkpoint": null,
+      "error_handlers": [],
+      "risk_level": "safe",
+      "waits_for_network": false,
+      "for_each": null,
+      "timeout_ms": 5000,
+      "wait_before_ms": 0
+    },
+    {
+      "id": "click_12",
+      "action": "click",
+      "description": "Continue to the order review page",
+      "target": {
+        "locators": [
+          {
+            "strategy": "role",
+            "value": "Continue",
+            "role": "button",
+            "description": "button \"Continue\"",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[data-test=\"continue\"]",
+            "role": null,
+            "description": "by test attribute",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[id=\"continue\"]",
+            "role": null,
+            "description": "by id",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "input[name=\"continue\"]",
+            "role": null,
+            "description": "by name attribute",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "input[value=\"Continue\"]",
+            "role": null,
+            "description": "by button label",
+            "inside_card": null,
+            "card_text": null
+          }
+        ],
+        "description": "button \"Continue\"",
+        "iframe_path": null
+      },
+      "value": null,
+      "url": null,
+      "extract_output_key": null,
+      "checkpoint": {
+        "type": "url_contains",
+        "value": "checkout-step-two.html",
+        "locator": null,
+        "description": "the \"checkout-step-two.html\" page"
+      },
+      "error_handlers": [
+        {
+          "condition": {
+            "type": "alert_visible",
+            "value": "",
+            "locator": null
+          },
+          "also_requires": [
+            {
+              "type": "url_not_contains",
+              "value": "checkout-step-two.html",
+              "locator": null
+            }
+          ],
+          "classification": "business_outcome",
+          "outcome_key": "checkout_information_rejected",
+          "outcome_message": "Report the application's displayed checkout information error",
+          "report_page_message": true,
+          "recovery": null,
+          "recovery_target": null,
+          "max_retries": 0
+        }
+      ],
+      "risk_level": "safe",
+      "waits_for_network": false,
+      "for_each": null,
+      "timeout_ms": 10000,
+      "wait_before_ms": 0
+    },
+    {
+      "id": "extract_13",
+      "action": "extract",
+      "description": "Each ordered item's name and price",
+      "target": {
+        "locators": [
+          {
+            "strategy": "css",
+            "value": "[data-test=\"cart-list\"]",
+            "role": null,
+            "description": "by test attribute",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[id=\"checkout_summary_container\"] > div > div:nth-of-type(1)",
+            "role": null,
+            "description": "by position in the page structure",
+            "inside_card": null,
+            "card_text": null
+          }
+        ],
+        "description": "div",
+        "iframe_path": null
+      },
+      "value": null,
+      "url": null,
+      "extract_output_key": "items",
+      "checkpoint": null,
+      "error_handlers": [],
+      "risk_level": "safe",
+      "waits_for_network": false,
+      "for_each": null,
+      "timeout_ms": 5000,
+      "wait_before_ms": 0
+    },
+    {
+      "id": "extract_14",
+      "action": "extract",
+      "description": "The order item total",
+      "target": {
+        "locators": [
+          {
+            "strategy": "css",
+            "value": "[data-test=\"subtotal-label\"]",
+            "role": null,
+            "description": "by test attribute",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[id=\"checkout_summary_container\"] > div > div:nth-of-type(2) > div:nth-of-type(6)",
+            "role": null,
+            "description": "by position in the page structure",
+            "inside_card": null,
+            "card_text": null
+          }
+        ],
+        "description": "generic",
+        "iframe_path": null
+      },
+      "value": null,
+      "url": null,
+      "extract_output_key": "item_total",
+      "checkpoint": null,
+      "error_handlers": [],
+      "risk_level": "safe",
+      "waits_for_network": false,
+      "for_each": null,
+      "timeout_ms": 5000,
+      "wait_before_ms": 0
+    },
+    {
+      "id": "extract_15",
+      "action": "extract",
+      "description": "The order tax",
+      "target": {
+        "locators": [
+          {
+            "strategy": "css",
+            "value": "[data-test=\"tax-label\"]",
+            "role": null,
+            "description": "by test attribute",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[id=\"checkout_summary_container\"] > div > div:nth-of-type(2) > div:nth-of-type(7)",
+            "role": null,
+            "description": "by position in the page structure",
+            "inside_card": null,
+            "card_text": null
+          }
+        ],
+        "description": "generic",
+        "iframe_path": null
+      },
+      "value": null,
+      "url": null,
+      "extract_output_key": "tax",
+      "checkpoint": null,
+      "error_handlers": [],
+      "risk_level": "safe",
+      "waits_for_network": false,
+      "for_each": null,
+      "timeout_ms": 5000,
+      "wait_before_ms": 0
+    },
+    {
+      "id": "extract_16",
+      "action": "extract",
+      "description": "The order total",
+      "target": {
+        "locators": [
+          {
+            "strategy": "css",
+            "value": "[data-test=\"total-label\"]",
+            "role": null,
+            "description": "by test attribute",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[id=\"checkout_summary_container\"] > div > div:nth-of-type(2) > div:nth-of-type(8)",
+            "role": null,
+            "description": "by position in the page structure",
+            "inside_card": null,
+            "card_text": null
+          }
+        ],
+        "description": "generic",
+        "iframe_path": null
+      },
+      "value": null,
+      "url": null,
+      "extract_output_key": "total",
+      "checkpoint": null,
+      "error_handlers": [],
+      "risk_level": "safe",
+      "waits_for_network": false,
+      "for_each": null,
+      "timeout_ms": 5000,
+      "wait_before_ms": 0
+    },
+    {
+      "id": "click_17",
+      "action": "click",
+      "description": "Place the order by clicking Finish; human approval is required",
+      "target": {
+        "locators": [
+          {
+            "strategy": "role",
+            "value": "Finish",
+            "role": "button",
+            "description": "button \"Finish\"",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[data-test=\"finish\"]",
+            "role": null,
+            "description": "by test attribute",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[id=\"finish\"]",
+            "role": null,
+            "description": "by id",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "button[name=\"finish\"]",
+            "role": null,
+            "description": "by name attribute",
+            "inside_card": null,
+            "card_text": null
+          }
+        ],
+        "description": "button \"Finish\"",
+        "iframe_path": null
+      },
+      "value": null,
+      "url": null,
+      "extract_output_key": null,
+      "checkpoint": {
+        "type": "element_visible",
+        "value": "",
+        "locator": {
+          "strategy": "role",
+          "value": "Thank you for your order!",
+          "role": "heading",
+          "description": "heading \"Thank you for your order!\"",
+          "inside_card": null,
+          "card_text": null
+        },
+        "description": "the \"Thank you for your order!\" heading"
+      },
+      "error_handlers": [],
+      "risk_level": "needs_confirmation",
+      "waits_for_network": false,
+      "for_each": null,
+      "timeout_ms": 10000,
+      "wait_before_ms": 0
+    },
+    {
+      "id": "extract_18",
+      "action": "extract",
+      "description": "The thank-you confirmation message",
+      "target": {
+        "locators": [
+          {
+            "strategy": "css",
+            "value": "[data-test=\"complete-header\"]",
+            "role": null,
+            "description": "by test attribute",
+            "inside_card": null,
+            "card_text": null
+          },
+          {
+            "strategy": "css",
+            "value": "[id=\"checkout_complete_container\"] > h2",
+            "role": null,
+            "description": "by position in the page structure",
+            "inside_card": null,
+            "card_text": null
+          }
+        ],
+        "description": "heading",
+        "iframe_path": null
+      },
+      "value": null,
+      "url": null,
+      "extract_output_key": "confirmation_message",
+      "checkpoint": null,
+      "error_handlers": [],
+      "risk_level": "safe",
+      "waits_for_network": false,
+      "for_each": null,
+      "timeout_ms": 5000,
+      "wait_before_ms": 0
+    }
+  ],
+  "global_error_handlers": [],
+  "policy": {
+    "allowed_domains": [
+      "www.saucedemo.com"
+    ],
+    "blocked_url_patterns": [],
+    "allowed_actions": [
+      "click",
+      "type",
+      "select_option",
+      "navigate",
+      "extract",
+      "wait",
+      "assert",
+      "scroll",
+      "key_press"
+    ],
+    "pii_fields": [
+      "password",
+      "first_name",
+      "last_name",
+      "zip"
+    ],
+    "max_steps": 30,
+    "timeout_seconds": 145
+  },
+  "requires_operator": true
+}

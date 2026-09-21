@@ -1,0 +1,10 @@
+Replaying: Total with tax
+  Steps: 16
+  Inputs:  {'username': 'standard_user', 'items': ['Sauce Labs Hoverboard'], 'password': '***', 'first_name': '***', 'last_name': '***', 'zip': '***'}
+
+Replay result: FAILURE
+  Duration: 0ms
+  Failure: Invalid input: 'items' has unknown values ['Sauce Labs Hoverboard']; each must be one of: Sauce Labs Backpack, Sauce Labs Bike Light, Sauce Labs Bolt T-Shirt, Sauce Labs Fleece Jacket, Sauce Labs Onesie, Test.allTheThings() T-Shirt (Red)
+  Failed at: input_validation
+
+  Result saved: evidence/logs/04_replay_total_unknown.json
