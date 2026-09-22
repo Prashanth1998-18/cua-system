@@ -18,7 +18,7 @@ An LLM figures out how to do a job in a web application once. That run is record
 
 **Target application:** [SauceDemo](https://www.saucedemo.com) (Swag Labs), a public e-commerce demo site. Three capabilities are recorded against it: browse the catalog, total an order with tax, and place an order. The procedures they were discovered from are in [`workflows.md`](workflows.md).
 
-Design rationale lives in [`REPORT.md`](REPORT.md) (the seven required sections) and [`decisions.md`](decisions.md) (24 ADRs, written as the decisions were made).
+Design rationale lives in [`REPORT.md`](REPORT.md) (the seven required sections) and [`decisions.md`](decisions.md) (25 ADRs, written as the decisions were made).
 
 ## Requirements
 
@@ -148,10 +148,12 @@ cua operator --port 8080                           # the console on its own
 ## Tests
 
 ```bash
-python -m pytest -q        # 138 tests, ~55s
+python -m pytest -q        # 143 tests, ~60s
 ```
 
 No test touches the network or an LLM. The browser tests run headless against inline pages and a throwaway localhost server; the escalation tests drive the real console app over its HTTP API with a simulated operator; discovery is tested with a scripted stand-in for the model. `tests/conftest.py` isolates them from your `.env`.
+
+`tests/test_docs_match_reality.py` checks this file and `REPORT.md` against the code: the test count above, the ADR count, the size of the bundled zip list, and every path either document points at. Claims precise enough to verify are the ones a reviewer checks first, so they're verified on every run (`decisions.md` ADR-025).
 
 ## Project structure
 
@@ -189,7 +191,7 @@ scripts/
   mock_legacy_app.py      a legacy-shaped app that produces recoverable and hard failures
 evidence/                 artifacts, logs and screenshots from real runs
 workflows.md              the plain-English procedures discovery is given
-decisions.md              24 ADRs
+decisions.md              25 ADRs
 REPORT.md                 the design write-up
 ```
 

@@ -1,6 +1,6 @@
 # REPORT
 
-Built against [SauceDemo](https://www.saucedemo.com) — browse catalog, total with tax, place order — and a mock back-office app for the conditions a polished demo site never produces. Every artifact in `evidence/` came out of a real LLM-driven run. Per-decision rationale: [`decisions.md`](decisions.md), 24 ADRs.
+Built against [SauceDemo](https://www.saucedemo.com) — browse catalog, total with tax, place order — and a mock back-office app for the conditions a polished demo site never produces. Every artifact in `evidence/` came out of a real LLM-driven run. Per-decision rationale: [`decisions.md`](decisions.md), 25 ADRs.
 
 ---
 

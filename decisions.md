@@ -524,6 +524,28 @@ So the console now **polls a masked screenshot of the live page** (`/api/live.pn
 
 ---
 
+## ADR-025: The Write-Up Is Tested
+
+**Status**: Decided and built
+
+**Context**: A reviewer asked where this project uses the Anthropic SDK. It doesn't, and never did — ADR-005 had said so and was never corrected after ADR-008 changed the decision. Auditing the rest of the prose against the code turned up a stale test count, three stale ADR statuses, two wrong ADR cross-references in code comments, a docstring calling an HTTP endpoint a WebSocket URL, and a "~50-line agent loop" that had grown to roughly 470 lines.
+
+**The pattern**: every one of those was prose written alongside code that then moved. The parts that rotted were the descriptive claims; nothing was checking them. Reading carefully found them once, but reading carefully doesn't run on every commit.
+
+**Decision**: `tests/test_docs_match_reality.py` checks the claims that are mechanically checkable.
+- The test count in the README against what pytest collects.
+- The ADR count claimed in the README and REPORT against `^## ADR-` in this file.
+- The zip-list size claimed in the REPORT against the bundled file.
+- Every `evidence/`, `cua/`, `scripts/` and `tests/` path the README or REPORT points at, including globs, against the filesystem.
+
+Each check was verified by planting a false claim and confirming it fails, then restoring it — a guard that can't fail is worse than no guard, because it reads like assurance.
+
+**Trade-off**: the test count couples the README to the suite, so adding a test fails the build until one number is updated. That friction is the mechanism, and it caught itself immediately: adding these five tests broke the README's "138 tests" on the first run.
+
+**What this does not do**: prose can still be wrong. "The cascade is ranked by what survives change" is not checkable by a test; "41,488" is. The rule this encodes is narrower than honesty — it is that a claim precise enough to verify should be verified automatically, because those are the ones a reviewer will check first.
+
+---
+
 ## Open Questions
 
 - None at the moment.
