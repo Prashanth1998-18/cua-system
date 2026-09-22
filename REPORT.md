@@ -19,7 +19,7 @@ workflows.md (plain English)        Capability artifact (JSON)
                pause · take the live session · hand back
 ```
 
-**Discovery** is a ~50-line observe/decide/act loop on the raw SDK, no agent framework (ADR-009). Each turn: an accessibility snapshot where every element has a ref (`button "Add to cart" [ref=e44]`), one tool call, executed, recorded. **Replay** walks the steps mechanically — validate inputs, resolve `{{inputs.x}}`, try locators in cascade order, verify the checkpoint, classify what goes wrong — with no model in the path.
+**Discovery** is a hand-written observe/decide/act loop on the `openai` SDK against an OpenAI-compatible endpoint — no agent framework (ADR-008/009). Each turn: an accessibility snapshot where every element has a ref (`button "Add to cart" [ref=e44]`), one tool call, executed, recorded. The loop itself is a dozen lines; what surrounds it is escalation, stuck detection and budgets. **Replay** walks the steps mechanically — validate inputs, resolve `{{inputs.x}}`, try locators in cascade order, verify the checkpoint, classify what goes wrong — with no model in the path.
 
 **The model points at refs and never writes a selector.** The load-bearing decision (ADR-002/003). An LLM asked for a CSS selector produces something plausible and unverified; a ref is something it can actually see, and the recorder derives locators from the element that ref resolves to. The model contributes *intent*, the recorder *identification*.
 

@@ -1,8 +1,11 @@
 """
 Discovery agent: LLM-driven observe/decide/act loop.
 
-This is the ~50-line agent loop (ADR-009): call model with tools,
-execute returned tool call, feed result back, repeat until done.
+The loop itself is small (ADR-009): call the model with tools, execute
+the tool call it returns, feed the result back, repeat until done. Most
+of what follows is not the loop -- it is asking a human before anything
+irreversible, noticing when the agent is stuck, and the step and time
+budgets that stop a run going nowhere.
 
 The agent:
 1. Observes the page (accessibility tree)

@@ -88,20 +88,22 @@ This is a living document: it's updated as design discussions happen, not writte
 
 ## ADR-005: Tech Stack
 
-**Decision**: Python 3.11+, Pydantic v2, Playwright (async), Claude API (Anthropic SDK), FastAPI for mock operator UI.
+**Decision**: Python 3.11+, Pydantic v2, Playwright (async), an LLM reached through the `openai` SDK, FastAPI for the operator console.
+
+> **Correction.** This ADR originally said "Claude API (Anthropic SDK)". That was the intention when it was written and it was reversed a few decisions later by ADR-008, which chose the `openai` SDK pointed at an OpenAI-compatible endpoint — `cua/discovery/agent.py` imports `AsyncOpenAI` and nothing else. The stale wording survived here longer than it should have; the rest of this ADR is corrected to match what was built.
 
 **Rationale**:
-- **Python**: First-class support for Playwright, Anthropic SDK, and Pydantic. Fastest path to a working system.
+- **Python**: First-class support for Playwright, the model SDKs, and Pydantic. Fastest path to a working system.
 - **Pydantic v2**: Typed models with built-in JSON serialization, validation, and schema generation. The artifact schema IS Pydantic models — no separate schema definition layer needed.
 - **Playwright (async)**: Best Python browser automation library. Built-in accessibility tree snapshots, screenshot capture, role-based locators, iframe handling, and CDP support (needed for human escalation).
-- **Claude API with tool_use**: Structured tool calls for the discovery agent loop. The LLM picks from defined tools (click, type, extract, assert), returning structured actions rather than free-text instructions.
-- **FastAPI**: Lightweight async web framework for the mock operator UI. WebSocket support for real-time state updates during human escalation.
+- **An LLM with tool calling**: structured tool calls for the discovery agent loop. The model picks from defined tools (click, type, extract, done), returning structured actions rather than free-text instructions.
+- **FastAPI**: a lightweight async web framework for the operator console. In the end it serves a plain HTML page that polls `/api/status`; no WebSockets are used.
 
 **What we're NOT using**: No task queues, no databases, no containerization, no microservices. Single-process CLI. The assignment explicitly says "simpler is fine if justified" and warns against building scaling infrastructure.
 
 ---
 
-## ADR-006: Human Escalation — Real State Machine, Mock Operator UI
+## ADR-006: Human Escalation — Real State Machine, Minimal Operator Console
 
 **Decision**: Implement a real pause/resume/handoff state machine. The operator console UI is mocked (simple web page) but the control-transfer mechanism is real.
 
@@ -113,19 +115,21 @@ This is a living document: it's updated as design discussions happen, not writte
 - The mock operator UI shows the intervention context and provides Resume/Abort controls.
 - On resume: the system re-snapshots the page (to see what the human changed), logs the human's intervention, and continues from the next step or re-attempts the failed step.
 
-**Why mock the UI but make the mechanism real**: The assignment explicitly says "mock the operator UI if needed, but make the handoff mechanism and the control-transfer model real." A full real-time co-browsing console is out of scope. The state machine, the pause/resume lifecycle, and the context preservation across handoff are the load-bearing parts.
+**Why keep the UI minimal but make the mechanism real**: The assignment explicitly says "mock the operator UI if needed, but make the handoff mechanism and the control-transfer model real." A full real-time co-browsing console is out of scope. The state machine, the pause/resume lifecycle, and the context preservation across handoff are the load-bearing parts.
+
+**What it actually became** (this ADR was written before any of it existed): the console is thin but not mocked. It serves a real intervention with a masked screenshot and redacted inputs, polls a live view of the page (`/api/live.png`), and offers Approve / Take over / Abort — not just Resume/Abort. A takeover hands the operator the same live browser window and requires them to state what they did when handing back (ADR-019), and everything they did is recorded. What remains deliberately minimal: polling rather than push, one run at a time, no auth, no queue.
 
 ---
 
 ## ADR-007: Architecture Shape — Single-Process CLI
 
-**Decision**: The system is a CLI tool with three commands: `discover`, `replay`, and `operator` (starts the mock operator UI server).
+**Decision**: The system is a single-process CLI. It began with three commands — `discover`, `replay`, `operator` — and ended with five: `validate` (check an artifact with no browser and no model) and `capabilities` (the catalog an agent would call) were added later.
 
 **Why not services/microservices**:
 - The assignment warns: "We do not reward feature breadth, framework name-dropping, or building scaling infrastructure."
 - A single process is simpler to run, debug, and review. The evaluator runs one command and sees results.
 - The boundaries that matter (surface adapter, replay engine, safety layer) are module boundaries, not service boundaries. They could become services later without changing the interfaces.
-- The only separate process is the FastAPI operator UI server, which runs alongside when human escalation is needed.
+- The only separate server is the FastAPI operator console, started in-process on the first intervention and shut down with the run (ADR-022).
 
 ---
 
@@ -152,7 +156,7 @@ This is a living document: it's updated as design discussions happen, not writte
 **Context**: Need to implement the observe > decide > act loop for discovery. Several Python agent frameworks exist that could reduce boilerplate.
 
 **Options considered**:
-- **Raw `openai` SDK**: Write the tool-use loop manually (~50 lines). Define tools as JSON schemas, call the model, execute the returned tool call, feed result back, repeat until goal met or stop condition.
+- **Raw `openai` SDK**: Write the tool-use loop manually. Define tools as JSON schemas, call the model, execute the returned tool call, feed result back, repeat until goal met or stop condition.
 - **`pydantic-ai`** (by the Pydantic team): Agent loop management, structured outputs, OpenAI-compatible. Adds a dependency but reduces boilerplate.
 - **`browser-use`**: Open source lib specifically for LLM + browser automation. Does most of what we need out of the box, but then we're explaining someone else's architecture.
 - **LangChain / LangGraph**: Heavy dependency, complex abstractions. The assignment warns against framework name-dropping.
@@ -160,12 +164,14 @@ This is a living document: it's updated as design discussions happen, not writte
 
 **Why raw SDK**:
 - The agent loop is genuinely simple: call model with tools, execute tool, feed result back, repeat. A framework doesn't reduce meaningful complexity here.
-- In the interview, "I wrote a 50-line observe/decide/act loop" demonstrates understanding. "I used pydantic-ai's agent runner" demonstrates dependency management.
+- Writing the observe/decide/act loop demonstrates understanding of it; using someone else's agent runner demonstrates dependency management.
 - No black-box behavior. Every decision point is visible in the code.
 - The assignment explicitly warns against framework name-dropping. A thinner stack shows better judgment.
 - One less dependency to install, debug, and explain.
 
 **Trade-off**: Slightly more boilerplate for tool definition and the retry/error loop. Worth it for clarity and ownership of the design.
+
+**How it aged**: the *decision* held — there is still no framework, and the model call is a dozen lines. The *loop* did not stay small. `DiscoveryAgent.discover()` is around 470 lines, and almost none of that is the agent: it is escalation before irreversible actions, stuck detection, step and time budgets, recording checkpoints, and the provider-quirk handling in `_create_completion`. Earlier drafts of this repo described it as "a ~50-line loop" long after that stopped being true, which is exactly the kind of claim a reviewer should check and I should not have left standing.
 
 ---
 
@@ -247,7 +253,7 @@ The assignment evaluates robustness and error handling, and human escalation, ri
 
 ## ADR-013: SauceDemo Capabilities
 
-**Status**: Decided (not recorded yet)
+**Status**: Decided and recorded — all three are in `evidence/artifacts/`, plus a fourth against the mock app (ADR-023)
 
 **Decision**: Record three capabilities against SauceDemo, each from a short plain-English procedure in `workflows.md` (ADR-011):
 - **Browse catalog**: log in, optionally choose one of the four sort orders (name A–Z / Z–A, price low–high / high–low), and return every product's name, description and price. This also answers "how much do X and Y cost?": the caller reads X and Y's catalog prices from the list. The catalog is public, so returning all six products has no data-minimisation cost.
@@ -273,7 +279,7 @@ A plain "how much does X cost?" never goes through checkout. Nobody asks for the
 
 ## ADR-014: Variable-Length Item Lists
 
-**Status**: Decided and built (not yet exercised on the live site)
+**Status**: Decided, built, and exercised live with one, two and three items (`evidence/logs/04_replay_total_*`)
 
 **Context**: A request can name any number of products ("price check the backpack, the bike light and the onesie"). A recorded flow is a fixed sequence of steps, so a capability recorded with two items would always add exactly two.
 
@@ -333,7 +339,7 @@ A plain "how much does X cost?" never goes through checkout. Nobody asks for the
 
 ## ADR-017: Login Model and SauceDemo's Special Accounts
 
-**Status**: Decided (option A)
+**Status**: Decided (option A) and built. Only `locked_out_user` was exercised, as a business outcome (ADR-020); the other special accounts were not tested
 
 **Context**: SauceDemo only accepts six usernames (`standard_user`, `locked_out_user`, `problem_user`, `performance_glitch_user`, `error_user`, `visual_user`), all with the same password. So "whose account logs in" decides what a failed login means:
 - **A: a configured account the system logs in with**, acting on the requester's behalf. A failed login means the system's own setup is broken, so it's an error that escalates.

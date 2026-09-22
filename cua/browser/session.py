@@ -2,7 +2,7 @@
 Browser session lifecycle management.
 
 Handles launching Playwright, creating browser contexts, and cleanup.
-Each replay starts a fresh session (ADR-013).
+Each replay starts a fresh session.
 """
 
 from __future__ import annotations
@@ -152,5 +152,9 @@ class BrowserSession:
 
     @property
     def cdp_url(self) -> str:
-        """The CDP WebSocket URL for external debugging connections."""
+        """
+        The browser's CDP endpoint. An HTTP address, not a WebSocket one:
+        the per-target inspector URLs are looked up from /json/list (see
+        the operator console's /api/devtools).
+        """
         return f"http://127.0.0.1:{self.config.cdp_port}"

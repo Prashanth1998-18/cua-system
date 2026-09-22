@@ -148,7 +148,7 @@ cua operator --port 8080                           # the console on its own
 ## Tests
 
 ```bash
-python -m pytest -q        # 122 tests, ~45s
+python -m pytest -q        # 138 tests, ~55s
 ```
 
 No test touches the network or an LLM. The browser tests run headless against inline pages and a throwaway localhost server; the escalation tests drive the real console app over its HTTP API with a simulated operator; discovery is tested with a scripted stand-in for the model. `tests/conftest.py` isolates them from your `.env`.
@@ -169,7 +169,7 @@ cua/
     network.py            "has the page stopped talking to the server yet"
     safety.py             domain allowlist, risk classification, PII redaction
   discovery/
-    agent.py              the observe → decide → act loop (raw SDK, no framework)
+    agent.py              the observe → decide → act loop (openai SDK, no framework)
     observer.py           accessibility snapshot → text for the model
     tools.py              the tools the model may call, executed against Playwright
     recorder.py           turns real elements into locators, actions into steps

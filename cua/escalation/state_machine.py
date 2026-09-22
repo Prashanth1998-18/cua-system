@@ -1,5 +1,5 @@
 """
-Escalation state machine (ADR-007).
+Escalation state machine (ADR-006).
 
 Three states:
   AUTOMATION_ACTIVE  ←→  PAUSED  ←→  HUMAN_ACTIVE
